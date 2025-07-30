@@ -3,12 +3,12 @@ title: "CARP - a CMAF compliant implementation of WARP"
 category: info
 
 docname: draft-law-moq-carp-latest
-submissiontype: IETF  
+submissiontype: IETF
 number:
 date:
 consensus: true
 v: 3
-area: AREA
+area: "Web and Internet Transport"
 workgroup: "Media Over QUIC"
 keyword:
  - moq
@@ -17,11 +17,11 @@ keyword:
  - CMAF
 venue:
   group: "Media Over QUIC"
-  type: ""
+  type: "Working Group"
   mail: "moq@ietf.org"
   arch: "https://mailarchive.ietf.org/arch/browse/moq/"
-  github: "wilaw/CARP"
-  latest: "https://wilaw.github.io/CARP/draft-law-moq-carp.html"
+  github: "wilaw/carp"
+  latest: "https://wilaw.github.io/carp/draft-law-moq-carp.html"
 
 author:
   -
@@ -40,7 +40,7 @@ informative:
 
 --- abstract
 
-CARP adds CMAF support to WARP. 
+CARP adds CMAF support to WARP.
 
 
 --- middle
@@ -56,7 +56,7 @@ levels of live latency, as well as VOD content.
 This document describes version 1 of the CARP streaming format
 
 # WARP Extension
-This 
+This
 
 # Conventions and Definitions
 
