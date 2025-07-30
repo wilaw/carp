@@ -1,0 +1,81 @@
+---
+title: "CARP - a CMAF compliant implementation of WARP"
+category: info
+
+docname: draft-law-moq-carp-latest
+submissiontype: IETF  
+number:
+date:
+consensus: true
+v: 3
+area: AREA
+workgroup: "Media Over QUIC"
+keyword:
+ - moq
+ - moqt
+ - WARP
+ - CMAF
+venue:
+  group: "Media Over QUIC"
+  type: ""
+  mail: "moq@ietf.org"
+  arch: "https://mailarchive.ietf.org/arch/browse/moq/"
+  github: "wilaw/CARP"
+  latest: "https://wilaw.github.io/CARP/draft-law-moq-carp.html"
+
+author:
+  -
+    ins: W. Law
+    name: "Will Law"
+    organization: Akamai
+    email: wilaw@akamai.com
+
+normative:
+  MoQTransport: I-D.draft-ietf-moq-transport-10
+  WARP:  I-D.draft-ietf-moq-warp
+
+informative:
+
+...
+
+--- abstract
+
+CARP adds CMAF support to WARP. 
+
+
+--- middle
+
+# Introduction
+0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567
+CARP Streaming Format (CARP) is a media format designed to deliver CMAF [CMAF] and
+LOC [LOC] compliant media content over MOQ Transport (MOQT) [MoQTransport]. CARP extends
+WARP and retains all the capabilities and features of WARP including the catalog format,
+timeline, ABR switching and LOC support. CARP is targeted at real-time and interactive
+levels of live latency, as well as VOD content.
+
+This document describes version 1 of the CARP streaming format
+
+# WARP Extension
+This 
+
+# Conventions and Definitions
+
+{::boilerplate bcp14-tagged}
+
+
+# Security Considerations
+
+TODO Security
+
+
+# IANA Considerations
+
+This document has no IANA actions.
+
+
+--- back
+
+# Acknowledgments
+{:numbered="false"}
+
+TODO acknowledge.
