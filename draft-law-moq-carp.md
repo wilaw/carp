@@ -69,7 +69,7 @@ This document describes version 1 of the CARP streaming format.
 All of the specifications, requirements, and terminology defined in [WARP] apply to
 implementations of this extension unless explicitly noted otherwise in this document.
 
-# CMAF Packaging 
+# CMAF Packaging
 
 ## Initialization headers
 A CMAF header is sequence of CMAF constrained ISO BMFF boxes that do not reference any
@@ -86,11 +86,11 @@ MOQT tracks ([MoQTransport] Sect 2.3).
 
 CMAF switching sets are a set of one or more CMAF tracks (3.2.1), where each track is an
 alternative encoding of the same source content and are constrained to enable seamless
-track switching (3.3.9). 
+track switching (3.3.9).
 
 Each CMAF track in a switching set MUST be transmitted as a separate MOQT Track. The
 catalog entry for each of these tracks in the switching set MUST carry a Alternate group
-(altGroup) key with a common value. 
+(altGroup) key with a common value.
 
 The MOQT Group numbers within these switching set tracks MUST be media time-aligned.
 Media time-aligned requires that the presentation time of the first media sample contained
@@ -119,7 +119,7 @@ to include a new entry, as defined in Table 1 below:
 |:================|:==========|:======================|
 | CMAF            | cmaf      | This RFC              |
 
-Every Track entry in a CARP catalog MUST declare a "packaging" type value of "cmaf". 
+Every Track entry in a CARP catalog MUST declare a "packaging" type value of "cmaf".
 
 # Catalog Examples
 
