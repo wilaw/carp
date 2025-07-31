@@ -4,8 +4,8 @@
 
 Media Over QUIC                                                   W. Law
 Internet-Draft                                                    Akamai
-Intended status: Informational                              30 July 2025
-Expires: 31 January 2026
+Intended status: Informational                              31 July 2025
+Expires: 1 February 2026
 
 
              CARP - a CMAF compliant implementation of WARP
@@ -13,24 +13,26 @@ Expires: 31 January 2026
 
 Abstract
 
-   CARP adds CMAF support to WARP.
+   This document updates [WARP] by defining a new optional feature for
+   the streaming format.  It specifies the syntax and semantics for
+   adding CMAF-packaged media [CMAF] to WARP.
 
 About This Document
 
    This note is to be removed before publishing as an RFC.
 
    The latest revision of this draft can be found at
-   https://wilaw.github.io/CARP/draft-law-moq-carp.html.  Status
+   https://wilaw.github.io/carp/draft-law-moq-carp.html.  Status
    information for this document may be found at
    https://datatracker.ietf.org/doc/draft-law-moq-carp/.
 
    Discussion of this document takes place on the Media Over QUIC
-   mailing list (mailto:moq@ietf.org), which is archived at
-   https://mailarchive.ietf.org/arch/browse/moq/.  Subscribe at
+   Working Group mailing list (mailto:moq@ietf.org), which is archived
+   at https://mailarchive.ietf.org/arch/browse/moq/.  Subscribe at
    https://www.ietf.org/mailman/listinfo/moq/.
 
    Source for this draft and an issue tracker can be found at
-   https://github.com/wilaw/CARP.
+   https://github.com/wilaw/carp.
 
 Status of This Memo
 
@@ -47,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 31 January 2026.
+   This Internet-Draft will expire on 1 February 2026.
 
 Copyright Notice
 
@@ -80,16 +82,18 @@ Table of Contents
    9012345678901234567 CARP Streaming Format (CARP) is a media format
    designed to deliver CMAF [CMAF] and LOC [LOC] compliant media content
    over MOQ Transport (MOQT) [MoQTransport].  CARP extends WARP and
-   retains all the capabilities and features of WARP including the
-   catalog format, timeline, ABR switching and LOC support.  CARP is
+   retains all the scope, capabilities and features of WARP including
+   the catalog format, timeline, ABR switching and LOC support.  CARP is
    targeted at real-time and interactive levels of live latency, as well
    as VOD content.
 
-   This document describes version 1 of the CARP streaming format
+   This document describes version 1 of the CARP streaming format.
 
 2.  WARP Extension
 
-   This
+   All of the specifications, requirements, and terminology defined in
+   [WARP] apply to implementations of this extension unless explicitly
+   noted otherwise in this document.
 
 3.  Conventions and Definitions
 
