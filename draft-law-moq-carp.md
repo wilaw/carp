@@ -33,7 +33,7 @@ author:
 normative:
   MoQTransport: I-D.draft-ietf-moq-transport-10
   WARP:  I-D.draft-ietf-moq-warp
-  CMAF: International Organization for Standardization, "Information technology — 
+  CMAF: International Organization for Standardization, "Information technology —
   Multimedia application format (MPEG-A) — Part 19: Common media application format
   (CMAF) for segmented media", ISO/IEC 23000-19:2021, Fourth edition, October 2021.
 
