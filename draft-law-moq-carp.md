@@ -33,6 +33,9 @@ author:
 normative:
   MoQTransport: I-D.draft-ietf-moq-transport-10
   WARP:  I-D.draft-ietf-moq-warp
+  CMAF: International Organization for Standardization, "Information technology — 
+  Multimedia application format (MPEG-A) — Part 19: Common media application format
+  (CMAF) for segmented media", ISO/IEC 23000-19:2021, Fourth edition, October 2021.
 
 informative:
 
@@ -40,7 +43,8 @@ informative:
 
 --- abstract
 
-CARP adds CMAF support to WARP.
+This document updates [WARP] by defining a new optional feature for the streaming format.
+It specifies the syntax and semantics for adding CMAF-packaged media [CMAF] to WARP.
 
 
 --- middle
@@ -49,14 +53,15 @@ CARP adds CMAF support to WARP.
 0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567
 CARP Streaming Format (CARP) is a media format designed to deliver CMAF [CMAF] and
 LOC [LOC] compliant media content over MOQ Transport (MOQT) [MoQTransport]. CARP extends
-WARP and retains all the capabilities and features of WARP including the catalog format,
-timeline, ABR switching and LOC support. CARP is targeted at real-time and interactive
-levels of live latency, as well as VOD content.
+WARP and retains all the scope, capabilities and features of WARP including the catalog
+format, timeline, ABR switching and LOC support. CARP is targeted at real-time and
+interactive levels of live latency, as well as VOD content.
 
-This document describes version 1 of the CARP streaming format
+This document describes version 1 of the CARP streaming format.
 
 # WARP Extension
-This
+All of the specifications, requirements, and terminology defined in [WARP] apply to
+implementations of this extension unless explicitly noted otherwise in this document.
 
 # Conventions and Definitions
 
