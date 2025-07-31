@@ -113,6 +113,11 @@ Table of Contents
 
 6.  Normative References
 
+   [CMAF]     Standardization, I. O. for., "Information technology —
+              Multimedia application format (MPEG-A) — Part 19: Common
+              media application format (CMAF) for segmented media",
+              October 2021.
+
    [MoQTransport]
               Curley, L., Pugin, K., Nandakumar, S., Vasiliev, V., and
               I. Swett, "Media over QUIC Transport", Work in Progress,
