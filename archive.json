@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-07-31T01:24:06.221797+00:00",
+  "timestamp": "2025-08-03T01:40:23.526671+00:00",
   "repo": "wilaw/carp",
   "labels": [
     {
@@ -49,6 +49,39 @@
       "color": "ffffff"
     }
   ],
-  "issues": [],
+  "issues": [
+    {
+      "number": 1,
+      "id": "I_kwDOPVWI587DoCKu",
+      "title": "Two minor editorial fixes",
+      "url": "https://github.com/wilaw/carp/issues/1",
+      "state": "OPEN",
+      "author": "yekuiwang",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "1)\tSection 3.1: In the following, change \"A CMAF header is sequence of\" to \"A CMAF header is **a** sequence of\" (adding 'a'):\n\n**A CMAF header is sequence of** CMAF constrained ISO BMFF boxes that do not reference any media samples, but are associated with a CMAF track and are necessary for initializing the decoding of the subsequent CMAF fragments.\n\n2)\tSection 3.2: In the following, change the beginning of the second sentence from \"Media time-aligned requires\" to \"Mandating the tracks being media time-aligned requires\":\n\nThe MOQT Group numbers within these switching set tracks MUST be media time-aligned. Media time-aligned requires that the presentation time of the first media sample contained within the first MOQT Object of each MOQT Group is identical.\n",
+      "createdAt": "2025-08-01T00:12:11Z",
+      "updatedAt": "2025-08-01T00:12:11Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 2,
+      "id": "I_kwDOPVWI587DoGJh",
+      "title": "Signalling of SAP type and earliest presentation time",
+      "url": "https://github.com/wilaw/carp/issues/2",
+      "state": "OPEN",
+      "author": "yekuiwang",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Subclause 9.2.9 of the CMAF spec specifies additional random access pictures within CMAF video fragments, as follows:\n\n> When coded video sequences have durations longer than 2 seconds, pictures of SAP type 3 should be encoded every 2 seconds or less to provide additional random access video media samples.\n> \n> For longer coded video sequences and resulting CMAF fragment durations, additional type 3 SAPs (\u201copen GOP\u201d independently decodable pictures) enable independent picture decoding for fast forward, fast reverse, and resumption of normal playback, while improving visual uniformity and lowering bit rate relative to groups of pictures with type 1 o 2 SAPs limited to the equivalent random access duration.\n\nIn CARP, I think it would be useful to add signalling of such additional random access points, into the timeline track, to enable their usage for fast forward, fast reverse, and resumption of normal playback.\n\nIt is therefore proposed to add Section 3.5, titled \"Timeline track extension\" to the CARP draft, as follows:\n\n**3.5 Timeline track extension**\nThe timeline track specified in [[WARP](https://wilaw.github.io/carp/draft-law-moq-carp.html#WARP)] is extended as follows:\n\n- Instead of always consisting of 5 column elements MEDIA_PTS, GROUP_ID, OBJECT_ID, WALLCLOCK, METADATA, each row consists of either 5 column elements same as in [[WARP](https://wilaw.github.io/carp/draft-law-moq-carp.html#WARP)] or 7 column elements MEDIA_PTS, GROUP_ID, OBJECT_ID, WALLCLOCK, METADATA, SAP_TYPE, EARLIEST_PTS.\n- SAP_TYPE: the SAP type the Object begins with. This entry **MAY** be empty. The value 0 indicates that the Object does not start with an ISOBMFF stream access point. The value equal to 1, 2, or 3 indicates that the Object begins with a stream access point of SAP type 1, 2, or 3, respectively. When the Object is the first Object in the Group and this entry is not empty, the value **MUST** be equal to 1 or 2.\n- EARLIEST_PTS: the earlier media presentation timestamp of all media samples in the Object. This entry **MAY** be empty. When the SAP type of the Object begins with is equal to 2 or 3, this entry **MUST NOT** be empty.",
+      "createdAt": "2025-08-01T00:20:30Z",
+      "updatedAt": "2025-08-01T00:20:30Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
   "pulls": []
 }
