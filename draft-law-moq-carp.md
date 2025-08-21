@@ -72,7 +72,7 @@ implementations of this extension unless explicitly noted otherwise in this docu
 # CMAF Packaging
 
 ## Initialization headers
-A CMAF header is sequence of CMAF constrained ISO BMFF boxes that do not reference any
+A CMAF header is a sequence of CMAF constrained ISO BMFF boxes that do not reference any
 media samples, but are associated with a CMAF track and are necessary for initializing
 the decoding of the subsequent CMAF fragments.
 
@@ -93,8 +93,8 @@ catalog entry for each of these tracks in the switching set MUST carry a Alterna
 (altGroup) key with a common value.
 
 The MOQT Group numbers within these switching set tracks MUST be media time-aligned.
-Media time-aligned requires that the presentation time of the first media sample contained
-within the first MOQT Object of each MOQT Group is identical.
+Mandating the track being media time-aligned requires that the presentation time of the
+first media sample contained within the first MOQT Object of each MOQT Group is identical.
 
 ## Object Packaging
 
@@ -120,6 +120,41 @@ to include a new entry, as defined in Table 1 below:
 | CMAF            | cmaf      | This RFC              |
 
 Every Track entry in a CARP catalog MUST declare a "packaging" type value of "cmaf".
+
+## Timeline description
+This specification extends the METADATA element of the timeline track, defined in WARP
+Section 7, in the following four aspects: 
+
+* Specification of a general scheme for metadata signalled through the METADATA element
+  of the timeline track [Ed.Note: This aspect should also be applied to WARP, thus
+  should be moved to WARP later on.]
+* Definition of a namespace for CARP-specific metadata signalled through the METADATA
+  element of the timeline track
+* Addition of metadata signalling of SAP type
+* Addition of metadata signalling of earliest presentation time
+
+
+### General metadata scheme
+When not empty, the string in the METADATA field MUST contain one or more comma
+separated key=value pairs, formatted as Strings as specified in Section 3.3.3 of
+[RFC9651]. For example, the METADATA field can be "key1=1,key2=3268".
+
+### Namespace for CARP-specific metadata signalled through the METADATA element
+For CARP-specific metadata signalled through the METADATA element, the namespace
+is "ietf:moq:warp:timeline:metadata:carp".
+
+### Metadata signalling of SAP type
+When the key of a key=value pair is "CARP.SAP_TYPE", the value indicates the SAP
+type the Object begins with. The value 0 indicates that the Object does not start with
+an ISOBMFF stream access point. The value equal to 1, 2, or 3 indicates that the Object
+begins with a stream access point of SAP type 1, 2, or 3, respectively. When the Object
+is the first Object in the Group, the value MUST be equal to 1 or 2.
+
+### Metadata signalling of earliest presentation time
+When the key of a key=value pair is "CARP.EARLIEST_PTS", the value indicates the earlier
+media presentation timestamp of all media samples in the Object. When the SAP type of
+the Object begins with is equal to 2 or 3, this key=value pair SHOULD be present.
+
 
 # Catalog Examples
 
