@@ -137,23 +137,32 @@ Section 7, in the following four aspects:
 ### General metadata scheme
 When not empty, the string in the METADATA field MUST contain one or more comma
 separated key=value pairs, formatted as Strings as specified in Section 3.3.3 of
-[RFC9651]. For example, the METADATA field can be "key1=1,key2=3268".
+[RFC9651]. For example, the METADATA field can be "key1=1,key2=3268". For another
+example, the METADATA field can be "key1=1,key2=""hello-world"",key3=3268".
+
+A key name MAY be prefixed with a namespace. When a namespace is present, the
+separator between the namespace prefix and the key name is '.'.
 
 ### Namespace for CARP-specific metadata signalled through the METADATA element
-For CARP-specific metadata signalled through the METADATA element, the namespace
-is "ietf:moq:warp:timeline:metadata:carp".
+For CARP-specific metadata signalled through the METADATA element, the namespace is
+"timeline:metadata:carp".
 
 ### Metadata signalling of SAP type
-When the key of a key=value pair is "CARP.SAP_TYPE", the value indicates the SAP
-type the Object begins with. The value 0 indicates that the Object does not start with
-an ISOBMFF stream access point. The value equal to 1, 2, or 3 indicates that the Object
-begins with a stream access point of SAP type 1, 2, or 3, respectively. When the Object
-is the first Object in the Group, the value MUST be equal to 1 or 2.
+When the key name of a key=value pair is "SAP_TYPE", the value indicates the SAP type
+the Object begins with. The namesapce-prefixed key is "timeline:metadata:carp.SAP_TYPE".
+
+The value 0 indicates that the Object does not start with an ISOBMFF stream access point.
+The value equal to 1, 2, or 3 indicates that the Object begins with a stream access point
+of SAP type 1, 2, or 3, respectively. When the Object is the first Object in the Group,
+the value MUST be equal to 1 or 2.
 
 ### Metadata signalling of earliest presentation time
-When the key of a key=value pair is "CARP.EARLIEST_PTS", the value indicates the earlier
-media presentation timestamp of all media samples in the Object. When the SAP type of
-the Object begins with is equal to 2 or 3, this key=value pair SHOULD be present.
+When the key name of a key=value pair is "EARLIEST_PTS", the value indicates the earliest
+media presentation timestamp rounded to the nearest millisecond of all media samples in
+the Object. The namesapce-prefixed key is "timeline:metadata:carp.SAP_TYPE".
+
+WWhen the SAP type the Object begins with is 2 or 3, the EARLIEST_PTS key SHOULD be
+present.
 
 
 # Catalog Examples
