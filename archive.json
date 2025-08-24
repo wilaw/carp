@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-08-21T01:12:57.220709+00:00",
+  "timestamp": "2025-08-24T01:21:48.131639+00:00",
   "repo": "wilaw/carp",
   "labels": [
     {
@@ -78,7 +78,7 @@
       "labels": [],
       "body": "Subclause 9.2.9 of the CMAF spec specifies additional random access pictures within CMAF video fragments, as follows:\n\n> When coded video sequences have durations longer than 2 seconds, pictures of SAP type 3 should be encoded every 2 seconds or less to provide additional random access video media samples.\n> \n> For longer coded video sequences and resulting CMAF fragment durations, additional type 3 SAPs (\u201copen GOP\u201d independently decodable pictures) enable independent picture decoding for fast forward, fast reverse, and resumption of normal playback, while improving visual uniformity and lowering bit rate relative to groups of pictures with type 1 o 2 SAPs limited to the equivalent random access duration.\n\nIn CARP, I think it would be useful to add signalling of such additional random access points, into the timeline track, to enable their usage for fast forward, fast reverse, and resumption of normal playback.\n\nIt is therefore proposed to add Section 3.5, titled \"Timeline track extension\" to the CARP draft, as follows:\n\n**3.5 Timeline track extension**\nThe timeline track specified in [[WARP](https://wilaw.github.io/carp/draft-law-moq-carp.html#WARP)] is extended as follows:\n\n- Instead of always consisting of 5 column elements MEDIA_PTS, GROUP_ID, OBJECT_ID, WALLCLOCK, METADATA, each row consists of either 5 column elements same as in [[WARP](https://wilaw.github.io/carp/draft-law-moq-carp.html#WARP)] or 7 column elements MEDIA_PTS, GROUP_ID, OBJECT_ID, WALLCLOCK, METADATA, SAP_TYPE, EARLIEST_PTS.\n- SAP_TYPE: the SAP type the Object begins with. This entry **MAY** be empty. The value 0 indicates that the Object does not start with an ISOBMFF stream access point. The value equal to 1, 2, or 3 indicates that the Object begins with a stream access point of SAP type 1, 2, or 3, respectively. When the Object is the first Object in the Group and this entry is not empty, the value **MUST** be equal to 1 or 2.\n- EARLIEST_PTS: the earlier media presentation timestamp of all media samples in the Object. This entry **MAY** be empty. When the SAP type of the Object begins with is equal to 2 or 3, this entry **MUST NOT** be empty.",
       "createdAt": "2025-08-01T00:20:30Z",
-      "updatedAt": "2025-08-20T18:45:44Z",
+      "updatedAt": "2025-08-21T08:00:57Z",
       "closedAt": null,
       "comments": [
         {
@@ -87,9 +87,103 @@
           "body": "Since RFC 4180 does not allow variable number of elements within a row, SAP_TYPE and EARLIEST_PTS could be signalled through the METADATA element of rows of the timeline track?\n\n@wilaw Please let me know your thinking. If positive, I can try to figure out the exact text changes.",
           "createdAt": "2025-08-20T18:45:44Z",
           "updatedAt": "2025-08-20T18:45:44Z"
+        },
+        {
+          "author": "wilaw",
+          "authorAssociation": "OWNER",
+          "body": "> @wilaw Please let me know your thinking. If positive, I can try to figure out the exact text changes.\n\nYes, @yekuiwang please go ahead with a proposal. If we're going to specify metadata to describe the type of access point, then we should first consider a general scheme for metadata (that should also be applied to WARP). One that is fairly extensible is a succession of key/value pairs, formatted as strings according to RFC 8941 Structured Field Values for HTTP. We can then define a namespace for specific metadata.\n\nMEDIA_PTS,GROUP_ID,OBJECT_ID,WALLCLOCK,METADATA\n4567827,4,64,1755762854417,\"CARP.SAP_TYPE=3, CARP.EARLIEST_PTS=4569112\"",
+          "createdAt": "2025-08-21T08:00:56Z",
+          "updatedAt": "2025-08-21T08:00:56Z"
         }
       ]
     }
   ],
-  "pulls": []
+  "pulls": [
+    {
+      "number": 3,
+      "id": "PR_kwDOPVWI586ku_e8",
+      "title": "Addition of metadata scheme and signalling of SAP type and earliest PTS",
+      "url": "https://github.com/wilaw/carp/pull/3",
+      "state": "OPEN",
+      "author": "yekuiwang",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "The changes are for:\r\n\r\n1. Addition of metadata scheme and signalling of SAP type and earliest PTS (fixes #2)\r\n2. Fixing two minor editorial issues (fixes #1) \r\n\r\n@wilaw I am not familiar with mechanisms for defining and use of namespaces, thus what I added definitely needs checking. BTW, RFC 9651 obsoletes RFC 8941, thus RFC 9651 is referenced instead. ",
+      "createdAt": "2025-08-21T17:34:12Z",
+      "updatedAt": "2025-08-22T16:28:40Z",
+      "baseRepository": "wilaw/carp",
+      "baseRefName": "main",
+      "baseRefOid": "35bca27dcc801b0327fe874e3b8f641f873da2d3",
+      "headRepository": "yekuiwang/carp",
+      "headRefName": "metadata-scheme-sap-type-earliest-pts",
+      "headRefOid": "cb6897fb6df1d317808573eaeeef0e0de1c100fa",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "yekuiwang",
+          "authorAssociation": "NONE",
+          "body": "BTW, for the general metadata scheme that should also be applied to WARP, I tentatively put it herein but added an editing note saying: \"[Ed.Note: This aspect should also be applied to WARP, thus should be moved to WARP later on.]\"",
+          "createdAt": "2025-08-21T17:48:22Z",
+          "updatedAt": "2025-08-21T17:48:22Z"
+        },
+        {
+          "author": "yekuiwang",
+          "authorAssociation": "NONE",
+          "body": "@wilaw Many thanks for the review and all the comments! I addressed all your comments in the commit named \"Changes per Will's review\". Please let me know if some more changes are needed.",
+          "createdAt": "2025-08-22T16:28:40Z",
+          "updatedAt": "2025-08-22T16:28:40Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOPVWI5867ZRcM",
+          "commit": {
+            "abbreviatedOid": "d408ed8"
+          },
+          "author": "wilaw",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "Thanks for the PR. I added a number of specific comments around how the namespace is presented, its length and also some editorial suggestions. ",
+          "createdAt": "2025-08-22T10:22:09Z",
+          "updatedAt": "2025-08-22T10:32:31Z",
+          "comments": [
+            {
+              "originalPosition": 40,
+              "body": "Should you also include an example in which a string value is presented? For example\r\n\r\n\"key1=1,key2=\"\"hello-world\"\",key2=3268\".\r\n\r\n",
+              "createdAt": "2025-08-22T10:22:09Z",
+              "updatedAt": "2025-08-22T10:32:31Z"
+            },
+            {
+              "originalPosition": 44,
+              "body": "Where is this namespace added? Is it the prefix to the key? If so, would be good to explicitly state that. \r\n\r\n```\r\nietf:moq:warp:timeline:metadata:carp:SAP_TYPE\r\nietf:moq:warp:timeline:metadata:carp:EARLIEST_PTS\r\n```\r\n\r\nAlso, what is the separator between the prefix and the key name. Is it : or . or something else?\r\n\r\n```\r\nietf:moq:warp:timeline:metadata:carp.SAP_TYPE\r\nietf:moq:warp:timeline:metadata:carp.EARLIEST_PTS\r\n```\r\n",
+              "createdAt": "2025-08-22T10:26:23Z",
+              "updatedAt": "2025-08-22T10:32:31Z"
+            },
+            {
+              "originalPosition": 44,
+              "body": "`ietf:moq:warp:timeline:metadata:carp`\r\n\r\nDoes it need to be this verbose? Given that we are working within the WARp specification and this namespace will never be applied outside of that, we could probably shorten to\r\n\r\n`warp:timeline:metadata:carp`\r\n\r\nor even to \r\n\r\n`timeline:metadata:carp`\r\n",
+              "createdAt": "2025-08-22T10:29:14Z",
+              "updatedAt": "2025-08-22T10:32:31Z"
+            },
+            {
+              "originalPosition": 54,
+              "body": "```suggestion\r\nWhen the key of a key=value pair is \"CARP.EARLIEST_PTS\", the value indicates the earliest\r\n```",
+              "createdAt": "2025-08-22T10:30:20Z",
+              "updatedAt": "2025-08-22T10:32:31Z"
+            },
+            {
+              "originalPosition": 56,
+              "body": "```suggestion\r\nthe Object is 2 or 3, the CARP.EARLIEST_PTS key SHOULD be present.\r\n```",
+              "createdAt": "2025-08-22T10:31:29Z",
+              "updatedAt": "2025-08-22T10:32:31Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
