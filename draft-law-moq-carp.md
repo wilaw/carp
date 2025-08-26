@@ -159,7 +159,7 @@ the value MUST be equal to 1 or 2.
 ### Metadata signalling of earliest presentation time
 When the key name of a key=value pair is "EARLIEST_PTS", the value indicates the earliest
 media presentation timestamp rounded to the nearest millisecond of all media samples in
-the Object. The namesapce-prefixed key is "timeline:metadata:carp.SAP_TYPE".
+the Object. The namespace-prefixed key is "timeline:metadata:carp.SAP_TYPE".
 
 WWhen the SAP type the Object begins with is 2 or 3, the EARLIEST_PTS key SHOULD be
 present.
