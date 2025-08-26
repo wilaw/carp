@@ -123,7 +123,7 @@ Every Track entry in a CARP catalog MUST declare a "packaging" type value of "cm
 
 ## Timeline description
 This specification extends the METADATA element of the timeline track, defined in WARP
-Section 7, in the following four aspects: 
+Section 7, in the following four aspects:
 
 * Specification of a general scheme for metadata signalled through the METADATA element
   of the timeline track [Ed.Note: This aspect should also be applied to WARP, thus
