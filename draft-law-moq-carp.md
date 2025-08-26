@@ -149,7 +149,7 @@ For CARP-specific metadata signalled through the METADATA element, the namespace
 
 ### Metadata signalling of SAP type
 When the key name of a key=value pair is "SAP_TYPE", the value indicates the SAP type
-the Object begins with. The namesapce-prefixed key is "timeline:metadata:carp.SAP_TYPE".
+the Object begins with. The namespace-prefixed key is "timeline:metadata:carp.SAP_TYPE".
 
 The value 0 indicates that the Object does not start with an ISOBMFF stream access point.
 The value equal to 1, 2, or 3 indicates that the Object begins with a stream access point
