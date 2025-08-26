@@ -4,8 +4,8 @@
 
 Media Over QUIC                                                   W. Law
 Internet-Draft                                                    Akamai
-Intended status: Informational                              31 July 2025
-Expires: 1 February 2026
+Intended status: Informational                            26 August 2025
+Expires: 27 February 2026
 
 
              CARP - a CMAF compliant implementation of WARP
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 February 2026.
+   This Internet-Draft will expire on 27 February 2026.
 
 Copyright Notice
 
@@ -74,6 +74,12 @@ Table of Contents
      3.2.  Switching sets and tracks
      3.3.  Object Packaging
      3.4.  Catalog description
+     3.5.  Timeline description
+       3.5.1.  General metadata scheme
+       3.5.2.  Namespace for CARP-specific metadata signalled through
+               the METADATA element
+       3.5.3.  Metadata signalling of SAP type
+       3.5.4.  Metadata signalling of earliest presentation time
    4.  Catalog Examples
      4.1.  Simulcast video tracks - 3 alternate video qualities along
            with audio
@@ -105,10 +111,10 @@ Table of Contents
 
 3.1.  Initialization headers
 
-   A CMAF header is sequence of CMAF constrained ISO BMFF boxes that do
-   not reference any media samples, but are associated with a CMAF track
-   and are necessary for initializing the decoding of the subsequent
-   CMAF fragments.
+   A CMAF header is a sequence of CMAF constrained ISO BMFF boxes that
+   do not reference any media samples, but are associated with a CMAF
+   track and are necessary for initializing the decoding of the
+   subsequent CMAF fragments.
 
    The header for a given MOQT Track MUST be packaged by encoding the
    header using [BASE64] and then inserting that payload as the value of
@@ -131,9 +137,10 @@ Table of Contents
    common value.
 
    The MOQT Group numbers within these switching set tracks MUST be
-   media time-aligned.  Media time-aligned requires that the
-   presentation time of the first media sample contained within the
-   first MOQT Object of each MOQT Group is identical.
+   media time-aligned.  Mandating the track being media time-aligned
+   requires that the presentation time of the first media sample
+   contained within the first MOQT Object of each MOQT Group is
+   identical.
 
 3.3.  Object Packaging
 
@@ -168,6 +175,63 @@ Table of Contents
 
    Every Track entry in a CARP catalog MUST declare a "packaging" type
    value of "cmaf".
+
+3.5.  Timeline description
+
+   This specification extends the METADATA element of the timeline
+   track, defined in WARP Section 7, in the following four aspects:
+
+   *  Specification of a general scheme for metadata signalled through
+      the METADATA element of the timeline track [Ed.Note: This aspect
+      should also be applied to WARP, thus should be moved to WARP later
+      on.]
+
+   *  Definition of a namespace for CARP-specific metadata signalled
+      through the METADATA element of the timeline track
+
+   *  Addition of metadata signalling of SAP type
+
+   *  Addition of metadata signalling of earliest presentation time
+
+3.5.1.  General metadata scheme
+
+   When not empty, the string in the METADATA field MUST contain one or
+   more comma separated key=value pairs, formatted as Strings as
+   specified in Section 3.3.3 of [RFC9651].  For example, the METADATA
+   field can be "key1=1,key2=3268".  For another example, the METADATA
+   field can be "key1=1,key2=""hello-world"",key3=3268".
+
+   A key name MAY be prefixed with a namespace.  When a namespace is
+   present, the separator between the namespace prefix and the key name
+   is '.'.
+
+3.5.2.  Namespace for CARP-specific metadata signalled through the
+        METADATA element
+
+   For CARP-specific metadata signalled through the METADATA element,
+   the namespace is "timeline:metadata:carp".
+
+3.5.3.  Metadata signalling of SAP type
+
+   When the key name of a key=value pair is "SAP_TYPE", the value
+   indicates the SAP type the Object begins with.  The namespace-
+   prefixed key is "timeline:metadata:carp.SAP_TYPE".
+
+   The value 0 indicates that the Object does not start with an ISOBMFF
+   stream access point.  The value equal to 1, 2, or 3 indicates that
+   the Object begins with a stream access point of SAP type 1, 2, or 3,
+   respectively.  When the Object is the first Object in the Group, the
+   value MUST be equal to 1 or 2.
+
+3.5.4.  Metadata signalling of earliest presentation time
+
+   When the key name of a key=value pair is "EARLIEST_PTS", the value
+   indicates the earliest media presentation timestamp rounded to the
+   nearest millisecond of all media samples in the Object.  The
+   namespace-prefixed key is "timeline:metadata:carp.SAP_TYPE".
+
+   WWhen the SAP type the Object begins with is 2 or 3, the EARLIEST_PTS
+   key SHOULD be present.
 
 4.  Catalog Examples
 
