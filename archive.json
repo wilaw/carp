@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-08-24T01:21:48.131639+00:00",
+  "timestamp": "2025-08-28T01:11:47.027528+00:00",
   "repo": "wilaw/carp",
   "labels": [
     {
@@ -55,15 +55,15 @@
       "id": "I_kwDOPVWI587DoCKu",
       "title": "Two minor editorial fixes",
       "url": "https://github.com/wilaw/carp/issues/1",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "yekuiwang",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "1)\tSection 3.1: In the following, change \"A CMAF header is sequence of\" to \"A CMAF header is **a** sequence of\" (adding 'a'):\n\n**A CMAF header is sequence of** CMAF constrained ISO BMFF boxes that do not reference any media samples, but are associated with a CMAF track and are necessary for initializing the decoding of the subsequent CMAF fragments.\n\n2)\tSection 3.2: In the following, change the beginning of the second sentence from \"Media time-aligned requires\" to \"Mandating the tracks being media time-aligned requires\":\n\nThe MOQT Group numbers within these switching set tracks MUST be media time-aligned. Media time-aligned requires that the presentation time of the first media sample contained within the first MOQT Object of each MOQT Group is identical.\n",
       "createdAt": "2025-08-01T00:12:11Z",
-      "updatedAt": "2025-08-01T00:12:11Z",
-      "closedAt": null,
+      "updatedAt": "2025-08-26T12:24:44Z",
+      "closedAt": "2025-08-26T12:24:44Z",
       "comments": []
     },
     {
@@ -71,19 +71,19 @@
       "id": "I_kwDOPVWI587DoGJh",
       "title": "Signalling of SAP type and earliest presentation time",
       "url": "https://github.com/wilaw/carp/issues/2",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "yekuiwang",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Subclause 9.2.9 of the CMAF spec specifies additional random access pictures within CMAF video fragments, as follows:\n\n> When coded video sequences have durations longer than 2 seconds, pictures of SAP type 3 should be encoded every 2 seconds or less to provide additional random access video media samples.\n> \n> For longer coded video sequences and resulting CMAF fragment durations, additional type 3 SAPs (\u201copen GOP\u201d independently decodable pictures) enable independent picture decoding for fast forward, fast reverse, and resumption of normal playback, while improving visual uniformity and lowering bit rate relative to groups of pictures with type 1 o 2 SAPs limited to the equivalent random access duration.\n\nIn CARP, I think it would be useful to add signalling of such additional random access points, into the timeline track, to enable their usage for fast forward, fast reverse, and resumption of normal playback.\n\nIt is therefore proposed to add Section 3.5, titled \"Timeline track extension\" to the CARP draft, as follows:\n\n**3.5 Timeline track extension**\nThe timeline track specified in [[WARP](https://wilaw.github.io/carp/draft-law-moq-carp.html#WARP)] is extended as follows:\n\n- Instead of always consisting of 5 column elements MEDIA_PTS, GROUP_ID, OBJECT_ID, WALLCLOCK, METADATA, each row consists of either 5 column elements same as in [[WARP](https://wilaw.github.io/carp/draft-law-moq-carp.html#WARP)] or 7 column elements MEDIA_PTS, GROUP_ID, OBJECT_ID, WALLCLOCK, METADATA, SAP_TYPE, EARLIEST_PTS.\n- SAP_TYPE: the SAP type the Object begins with. This entry **MAY** be empty. The value 0 indicates that the Object does not start with an ISOBMFF stream access point. The value equal to 1, 2, or 3 indicates that the Object begins with a stream access point of SAP type 1, 2, or 3, respectively. When the Object is the first Object in the Group and this entry is not empty, the value **MUST** be equal to 1 or 2.\n- EARLIEST_PTS: the earlier media presentation timestamp of all media samples in the Object. This entry **MAY** be empty. When the SAP type of the Object begins with is equal to 2 or 3, this entry **MUST NOT** be empty.",
       "createdAt": "2025-08-01T00:20:30Z",
-      "updatedAt": "2025-08-21T08:00:57Z",
-      "closedAt": null,
+      "updatedAt": "2025-08-26T12:24:43Z",
+      "closedAt": "2025-08-26T12:24:43Z",
       "comments": [
         {
           "author": "yekuiwang",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "Since RFC 4180 does not allow variable number of elements within a row, SAP_TYPE and EARLIEST_PTS could be signalled through the METADATA element of rows of the timeline track?\n\n@wilaw Please let me know your thinking. If positive, I can try to figure out the exact text changes.",
           "createdAt": "2025-08-20T18:45:44Z",
           "updatedAt": "2025-08-20T18:45:44Z"
@@ -96,6 +96,22 @@
           "updatedAt": "2025-08-21T08:00:56Z"
         }
       ]
+    },
+    {
+      "number": 4,
+      "id": "I_kwDOPVWI587IDujk",
+      "title": "Track-level signalling of max SAP types",
+      "url": "https://github.com/wilaw/carp/issues/4",
+      "state": "OPEN",
+      "author": "yekuiwang",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "DASH specifies a common Adaptation Set, Representation and Sub-Representation attribute @startWithSAP, with the following semantics:\n\nwhen present and greater than 0, specifies that in the associated Representations, each Media Segment starts with a SAP of type less than or equal to the value of this attribute value in each media stream.\nA Media Segment starts with a SAP in a media stream if the stream contains a SAP in that Media Segment, I_SAU is the index of the first access unit that follows I_SAP and I_SAP is contained in the Media Segment.\nIf not present on any level, the value is unknown.\n\nDASH also specifies an Adaptation Set attribute @subsegmentStartsWithSAP, with the following semantics:\n\nwhen greater than 0, specifies that each Subsegment with SAP_type greater than 0 starts with a SAP of type less than or equal to the value of @subsegmentStartsWithSAP. A Subsegment starts with SAP when the Subsegment contains a SAP, and for the first SAP, I_SAU is the index of the first access unit that follows I_SAP, and I_SAP is contained in the Subsegment.\nWhen not present, the value is inferred to be equal to 0. The semantics of @subsegmentStartsWithSAP equal to 0 are unspecified.\n\nBasically, in the context of both WARP and CARP, the DASH attribute @startWithSAP (if signalled in a track level) signals the max SAP type the MOQT Groups in the track start with, and in the context of CARP, the DASH attribute @subsegmentStartsWithSAP (if signalled in a track level) signals the max SAP type the MOQT Objects in the track start with.\n\nThe two indications are helpful for a client to determine whether to request certain tracks at all (e.g., if the client does not support SAP type 3, it can decide to never request a track wherein a Group may start with SAP type 3) and, if yes, how to switch between different alternative tracks when network conditions change.\n\nIt is therefore proposed to add two track-level catalog fields, named maxGrpSapType and maxObjSapType, respectively, to signal the above two indications. I.e., maxGrpSapType signals the max SAP type the MOQT Groups in the track start with, and maxObjSapType signals the max SAP type the MOQT Objects in the track start with. The maxGrpSapType applies also to WARP thus should be finally included into the WARP draft, but for the moment it can be included in the CARP draft (similarly as the general metadata scheme of the METADATA element of the timeline track).\n\n@wilaw What do you think? If positive, I can generate a PR with concrete proposed changes.\n",
+      "createdAt": "2025-08-26T16:54:13Z",
+      "updatedAt": "2025-08-26T16:54:13Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
@@ -104,35 +120,37 @@
       "id": "PR_kwDOPVWI586ku_e8",
       "title": "Addition of metadata scheme and signalling of SAP type and earliest PTS",
       "url": "https://github.com/wilaw/carp/pull/3",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "yekuiwang",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "The changes are for:\r\n\r\n1. Addition of metadata scheme and signalling of SAP type and earliest PTS (fixes #2)\r\n2. Fixing two minor editorial issues (fixes #1) \r\n\r\n@wilaw I am not familiar with mechanisms for defining and use of namespaces, thus what I added definitely needs checking. BTW, RFC 9651 obsoletes RFC 8941, thus RFC 9651 is referenced instead. ",
       "createdAt": "2025-08-21T17:34:12Z",
-      "updatedAt": "2025-08-22T16:28:40Z",
+      "updatedAt": "2025-08-26T12:24:42Z",
       "baseRepository": "wilaw/carp",
       "baseRefName": "main",
       "baseRefOid": "35bca27dcc801b0327fe874e3b8f641f873da2d3",
       "headRepository": "yekuiwang/carp",
       "headRefName": "metadata-scheme-sap-type-earliest-pts",
-      "headRefOid": "cb6897fb6df1d317808573eaeeef0e0de1c100fa",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "af5318de377de133cc3229fc9d312691a0ec578c",
+      "closedAt": "2025-08-26T12:24:42Z",
+      "mergedAt": "2025-08-26T12:24:42Z",
+      "mergedBy": "wilaw",
+      "mergeCommit": {
+        "oid": "3354877bd3836c769fad8af5a585eaec171b342a"
+      },
       "comments": [
         {
           "author": "yekuiwang",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "BTW, for the general metadata scheme that should also be applied to WARP, I tentatively put it herein but added an editing note saying: \"[Ed.Note: This aspect should also be applied to WARP, thus should be moved to WARP later on.]\"",
           "createdAt": "2025-08-21T17:48:22Z",
           "updatedAt": "2025-08-21T17:48:22Z"
         },
         {
           "author": "yekuiwang",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "@wilaw Many thanks for the review and all the comments! I addressed all your comments in the commit named \"Changes per Will's review\". Please let me know if some more changes are needed.",
           "createdAt": "2025-08-22T16:28:40Z",
           "updatedAt": "2025-08-22T16:28:40Z"
@@ -180,6 +198,46 @@
               "body": "```suggestion\r\nthe Object is 2 or 3, the CARP.EARLIEST_PTS key SHOULD be present.\r\n```",
               "createdAt": "2025-08-22T10:31:29Z",
               "updatedAt": "2025-08-22T10:32:31Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOPVWI5868E2xd",
+          "commit": {
+            "abbreviatedOid": "cb6897f"
+          },
+          "author": "wilaw",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-26T12:22:10Z",
+          "updatedAt": "2025-08-26T12:22:11Z",
+          "comments": [
+            {
+              "originalPosition": 52,
+              "body": "```suggestion\r\nthe Object begins with. The namespace-prefixed key is \"timeline:metadata:carp.SAP_TYPE\".\r\n```",
+              "createdAt": "2025-08-26T12:22:10Z",
+              "updatedAt": "2025-08-26T12:22:11Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOPVWI5868E3dN",
+          "commit": {
+            "abbreviatedOid": "6a3662c"
+          },
+          "author": "wilaw",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-26T12:23:01Z",
+          "updatedAt": "2025-08-26T12:23:02Z",
+          "comments": [
+            {
+              "originalPosition": 62,
+              "body": "```suggestion\r\nthe Object. The namespace-prefixed key is \"timeline:metadata:carp.SAP_TYPE\".\r\n```",
+              "createdAt": "2025-08-26T12:23:02Z",
+              "updatedAt": "2025-08-26T12:23:02Z"
             }
           ]
         }
