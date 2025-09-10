@@ -98,18 +98,25 @@ first media sample contained within the first MOQT Object of each MOQT Group is 
 
 ## Object Packaging
 
-Each MOQT Group MUST begin with a stream access point (SAP type 1 or 2).
-Each MOQT Object MUST hold one or more CMAF Chunks. The payload of each Object is subject
-to the following requirements:
+The payload of each Object is subject to the following requirements:
 
-* MUST consist of a Segment Type Box (styp) followed by any number of media fragments.
-  Each media fragment consists of a Movie Fragment Box (moof) followed by a Media Data
-  Box (mdat). The Media Fragment Box (moof) MUST contain a Movie Fragment Header Box
+* MUST contain at least one Movie Fragment Box (moof) followed by a Media Data
+  Box (mdat). This is equivalent to requiring that each Object hold at least one CMAF
+  Chunk. The Media Fragment Box (moof) MUST contain a Movie Fragment Header Box
   (mfhd) and Track Box (trak) with a Track ID (track_ID) matching a Track Box in the
   initialization fragment.
+* MAY contain multiple successive CMAF Chunks.
 * MUST contain a single [ISOBMFF] track.
 * MUST contain media content encoded in decode order.
 
+## Group Packaging
+
+Each MOQT Group
+
+* MUST begin with an Object containing a stream access point (SAP type 1 or 2).
+* MUST contain one or more contiguous Groups of Pictures (GOPs).
+* The Group boundary MUST align with a CMAF Fragment boundary. CMAF Fragments and CMAF
+  Chunks MUST not span Groups.
 
 ## Catalog description
 This specification extends the allowed packaging values defined in WARP Section 5.2.10
