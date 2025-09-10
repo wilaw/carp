@@ -4,7 +4,7 @@
 
 This is the working area for the individual Internet-Draft, "CARP - a CMAF compliant implementation of WARP".
 
-* [Editor's Copy](https://wilaw.github.io/carp/#go.draft-law-moq-carp.html)
+* [Editor's Copy](https://wilaw.github.io/carp)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-law-moq-carp)
 * [Individual Draft](https://datatracker.ietf.org/doc/html/draft-law-moq-carp)
 * [Compare Editor's Copy to Individual Draft](https://wilaw.github.io/carp/#go.draft-law-moq-carp.diff)
