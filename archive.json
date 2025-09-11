@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-08-28T01:11:47.027528+00:00",
+  "timestamp": "2025-09-11T01:11:04.830486+00:00",
   "repo": "wilaw/carp",
   "labels": [
     {
@@ -110,6 +110,22 @@
       "body": "DASH specifies a common Adaptation Set, Representation and Sub-Representation attribute @startWithSAP, with the following semantics:\n\nwhen present and greater than 0, specifies that in the associated Representations, each Media Segment starts with a SAP of type less than or equal to the value of this attribute value in each media stream.\nA Media Segment starts with a SAP in a media stream if the stream contains a SAP in that Media Segment, I_SAU is the index of the first access unit that follows I_SAP and I_SAP is contained in the Media Segment.\nIf not present on any level, the value is unknown.\n\nDASH also specifies an Adaptation Set attribute @subsegmentStartsWithSAP, with the following semantics:\n\nwhen greater than 0, specifies that each Subsegment with SAP_type greater than 0 starts with a SAP of type less than or equal to the value of @subsegmentStartsWithSAP. A Subsegment starts with SAP when the Subsegment contains a SAP, and for the first SAP, I_SAU is the index of the first access unit that follows I_SAP, and I_SAP is contained in the Subsegment.\nWhen not present, the value is inferred to be equal to 0. The semantics of @subsegmentStartsWithSAP equal to 0 are unspecified.\n\nBasically, in the context of both WARP and CARP, the DASH attribute @startWithSAP (if signalled in a track level) signals the max SAP type the MOQT Groups in the track start with, and in the context of CARP, the DASH attribute @subsegmentStartsWithSAP (if signalled in a track level) signals the max SAP type the MOQT Objects in the track start with.\n\nThe two indications are helpful for a client to determine whether to request certain tracks at all (e.g., if the client does not support SAP type 3, it can decide to never request a track wherein a Group may start with SAP type 3) and, if yes, how to switch between different alternative tracks when network conditions change.\n\nIt is therefore proposed to add two track-level catalog fields, named maxGrpSapType and maxObjSapType, respectively, to signal the above two indications. I.e., maxGrpSapType signals the max SAP type the MOQT Groups in the track start with, and maxObjSapType signals the max SAP type the MOQT Objects in the track start with. The maxGrpSapType applies also to WARP thus should be finally included into the WARP draft, but for the moment it can be included in the CARP draft (similarly as the general metadata scheme of the METADATA element of the timeline track).\n\n@wilaw What do you think? If positive, I can generate a PR with concrete proposed changes.\n",
       "createdAt": "2025-08-26T16:54:13Z",
       "updatedAt": "2025-08-26T16:54:13Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 6,
+      "id": "I_kwDOPVWI587K1Sqy",
+      "title": "Object Packaging vs CMAF media object model",
+      "url": "https://github.com/wilaw/carp/issues/6",
+      "state": "OPEN",
+      "author": "BpkCN",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "It would be useful to keep the packaging identical between CARP and LL-DASH, DASH, LL_HLS and HLS (with CMAF segments). With the current draft this is not the case: In \u201cObject Packaging\u201d section (3.3) it is said that each Object must contain a styp box and at least one moof + mdat box.  With CMAF format for segmented media (ISO 23000-19), the sty box is not required for Chunks, fragments or segments.\n\nThe fix could be to simply require that at least one moof and one mdat is contained in an Object (i.e. at least one CMAF Chunk per Object). The other boxes are optional. However, the first Object of a Group should be constrained to be an adaptive switching point (i.e. SAP type 1 or 2), therefore corresponding to the first CMAF Chunk in a CMAF fragment.\n\nProposed PR: #5 ",
+      "createdAt": "2025-09-10T15:40:13Z",
+      "updatedAt": "2025-09-10T15:40:13Z",
       "closedAt": null,
       "comments": []
     }
@@ -242,6 +258,32 @@
           ]
         }
       ]
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDOPVWI586nzGxH",
+      "title": "Refining CMAF box requirements for Object packaging",
+      "url": "https://github.com/wilaw/carp/pull/5",
+      "state": "OPEN",
+      "author": "wilaw",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-09-10T11:38:08Z",
+      "updatedAt": "2025-09-10T11:38:08Z",
+      "baseRepository": "wilaw/carp",
+      "baseRefName": "main",
+      "baseRefOid": "2f7d0a2bcb579c5c3502aa1afa2821c7562e8d50",
+      "headRepository": "wilaw/carp",
+      "headRefName": "wilaw-patch-1",
+      "headRefOid": "893f8da84da792bbe0497fadb95bfde1c905bdc5",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
