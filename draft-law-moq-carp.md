@@ -112,6 +112,8 @@ to the following requirements:
 
 
 ## Catalog description
+
+### CMAF packaging type
 This specification extends the allowed packaging values defined in WARP Section 5.2.10
 to include a new entry, as defined in Table 1 below:
 
@@ -120,6 +122,26 @@ to include a new entry, as defined in Table 1 below:
 | CMAF            | cmaf      | This RFC              |
 
 Every Track entry in a CARP catalog MUST declare a "packaging" type value of "cmaf".
+
+### Maximum SAP types
+This specification adds two track-level catalog fields, as defined in Table 2 below:
+
+| Field                   |  Name                  |           Definition      |
+|:========================|:=======================|:==========================|
+| Max Group SAP type      | maxGrpSapType          | {{maxgrpsaptype}}         |
+| Max Object SAP type     | maxObjSapType          | {{maxobjsaptype}}         |
+
+#### Maximum SAP type of a Group (#maxgrpsaptype)
+Location: T    Required: Optional   JSON Type: Number
+
+A number indicating the maximum SAP type the MOQT Groups in the track start with.
+[Ed.Note: This field, when the SAP terminology is translated to video codec terminology
+of Random Access Point (RAP) pictures such as IDR, CRA, etc, would also apply to WARP.]
+
+#### Maximum SAP type of an Object (#maxobjsaptype)
+Location: T    Required: Optional   JSON Type: Number
+
+A number indicating the maximum SAP type the MOQT Objects in the track start with.
 
 ## Timeline description
 This specification extends the METADATA element of the timeline track, defined in WARP
