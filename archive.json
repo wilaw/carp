@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-09-11T01:11:04.830486+00:00",
+  "timestamp": "2025-09-14T01:14:53.731924+00:00",
   "repo": "wilaw/carp",
   "labels": [
     {
@@ -109,9 +109,31 @@
       "labels": [],
       "body": "DASH specifies a common Adaptation Set, Representation and Sub-Representation attribute @startWithSAP, with the following semantics:\n\nwhen present and greater than 0, specifies that in the associated Representations, each Media Segment starts with a SAP of type less than or equal to the value of this attribute value in each media stream.\nA Media Segment starts with a SAP in a media stream if the stream contains a SAP in that Media Segment, I_SAU is the index of the first access unit that follows I_SAP and I_SAP is contained in the Media Segment.\nIf not present on any level, the value is unknown.\n\nDASH also specifies an Adaptation Set attribute @subsegmentStartsWithSAP, with the following semantics:\n\nwhen greater than 0, specifies that each Subsegment with SAP_type greater than 0 starts with a SAP of type less than or equal to the value of @subsegmentStartsWithSAP. A Subsegment starts with SAP when the Subsegment contains a SAP, and for the first SAP, I_SAU is the index of the first access unit that follows I_SAP, and I_SAP is contained in the Subsegment.\nWhen not present, the value is inferred to be equal to 0. The semantics of @subsegmentStartsWithSAP equal to 0 are unspecified.\n\nBasically, in the context of both WARP and CARP, the DASH attribute @startWithSAP (if signalled in a track level) signals the max SAP type the MOQT Groups in the track start with, and in the context of CARP, the DASH attribute @subsegmentStartsWithSAP (if signalled in a track level) signals the max SAP type the MOQT Objects in the track start with.\n\nThe two indications are helpful for a client to determine whether to request certain tracks at all (e.g., if the client does not support SAP type 3, it can decide to never request a track wherein a Group may start with SAP type 3) and, if yes, how to switch between different alternative tracks when network conditions change.\n\nIt is therefore proposed to add two track-level catalog fields, named maxGrpSapType and maxObjSapType, respectively, to signal the above two indications. I.e., maxGrpSapType signals the max SAP type the MOQT Groups in the track start with, and maxObjSapType signals the max SAP type the MOQT Objects in the track start with. The maxGrpSapType applies also to WARP thus should be finally included into the WARP draft, but for the moment it can be included in the CARP draft (similarly as the general metadata scheme of the METADATA element of the timeline track).\n\n@wilaw What do you think? If positive, I can generate a PR with concrete proposed changes.\n",
       "createdAt": "2025-08-26T16:54:13Z",
-      "updatedAt": "2025-08-26T16:54:13Z",
+      "updatedAt": "2025-09-11T18:34:36Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "wilaw",
+          "authorAssociation": "OWNER",
+          "body": "> It is therefore proposed to add two track-level catalog fields, named maxGrpSapType and maxObjSapType, respectively, to signal the above two indications. I.e., maxGrpSapType signals the max SAP type the MOQT Groups in the track start with, and maxObjSapType signals the max SAP type the MOQT Objects in the track start with. \n\n@yekuiwang  - I think this is a good idea. Can you generate a PR with the proposed changes?\n\n> The maxGrpSapType applies also to WARP thus should be finally included into the WARP draft\n\nDoes it? WARP only references LOC, which I don't think supports ISO style Stream Access Points?\n",
+          "createdAt": "2025-09-11T13:17:34Z",
+          "updatedAt": "2025-09-11T13:17:34Z"
+        },
+        {
+          "author": "yekuiwang",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Cool! Let me work on the PR.\n\n>> The maxGrpSapType applies also to WARP thus should be finally included into the WARP draft\n\n> Does it? WARP only references LOC, which I don't think supports ISO style Stream Access Points?\n\nGood point. On the other hand, ISOBMFF style SAP type is equivalent to Random Access Point (RAP) type in video codecs. For example, SAP type 1 means IDR (Instantaneous Decoding Refresh) without picture ordering, SAP type 2 means IDR with picture ordering, SAP type 3 means CRA (Clean Random Access), etc. To apply the signalling to WARP, indeed semantics need to be adapted such that the SAP terminology on the ISOBMFF level is translated to the RAP terminology in video codec level.",
+          "createdAt": "2025-09-11T17:35:24Z",
+          "updatedAt": "2025-09-11T17:35:24Z"
+        },
+        {
+          "author": "yekuiwang",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@wilaw Done with the PR. There is one failing check on [Update Editor's Copy / Update Editor's Copy (pull_request)](https://github.com/wilaw/carp/actions/runs/17653671870/job/50170826777?pr=7). I took a look but could not figure out what to change to correct the error. This happened to me several times for the MOQT PRs I submitted and each time Alan Frindell helped resolved the issue. Hopefully it is also easy for you to help me fixing the error herein - thank you in any case! There are still a lot of Git stuff for me to learn.",
+          "createdAt": "2025-09-11T18:34:36Z",
+          "updatedAt": "2025-09-11T18:34:36Z"
+        }
+      ]
     },
     {
       "number": 6,
@@ -278,6 +300,32 @@
       "headRepository": "wilaw/carp",
       "headRefName": "wilaw-patch-1",
       "headRefOid": "893f8da84da792bbe0497fadb95bfde1c905bdc5",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 7,
+      "id": "PR_kwDOPVWI586oGFGr",
+      "title": "Adding max Group/Ojbect SAP types",
+      "url": "https://github.com/wilaw/carp/pull/7",
+      "state": "OPEN",
+      "author": "yekuiwang",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Fixes: #4",
+      "createdAt": "2025-09-11T18:23:08Z",
+      "updatedAt": "2025-09-11T18:23:09Z",
+      "baseRepository": "wilaw/carp",
+      "baseRefName": "main",
+      "baseRefOid": "04c0f123e7dfc930ef2bc3a0180019312cd2fa2b",
+      "headRepository": "yekuiwang/carp",
+      "headRefName": "max-sap-types",
+      "headRefOid": "a7103c2457d8efe1e22ef52a2811c1441b0f81b7",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
