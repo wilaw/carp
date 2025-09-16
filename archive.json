@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-09-14T01:14:53.731924+00:00",
+  "timestamp": "2025-09-16T01:09:14.653132+00:00",
   "repo": "wilaw/carp",
   "labels": [
     {
@@ -109,7 +109,7 @@
       "labels": [],
       "body": "DASH specifies a common Adaptation Set, Representation and Sub-Representation attribute @startWithSAP, with the following semantics:\n\nwhen present and greater than 0, specifies that in the associated Representations, each Media Segment starts with a SAP of type less than or equal to the value of this attribute value in each media stream.\nA Media Segment starts with a SAP in a media stream if the stream contains a SAP in that Media Segment, I_SAU is the index of the first access unit that follows I_SAP and I_SAP is contained in the Media Segment.\nIf not present on any level, the value is unknown.\n\nDASH also specifies an Adaptation Set attribute @subsegmentStartsWithSAP, with the following semantics:\n\nwhen greater than 0, specifies that each Subsegment with SAP_type greater than 0 starts with a SAP of type less than or equal to the value of @subsegmentStartsWithSAP. A Subsegment starts with SAP when the Subsegment contains a SAP, and for the first SAP, I_SAU is the index of the first access unit that follows I_SAP, and I_SAP is contained in the Subsegment.\nWhen not present, the value is inferred to be equal to 0. The semantics of @subsegmentStartsWithSAP equal to 0 are unspecified.\n\nBasically, in the context of both WARP and CARP, the DASH attribute @startWithSAP (if signalled in a track level) signals the max SAP type the MOQT Groups in the track start with, and in the context of CARP, the DASH attribute @subsegmentStartsWithSAP (if signalled in a track level) signals the max SAP type the MOQT Objects in the track start with.\n\nThe two indications are helpful for a client to determine whether to request certain tracks at all (e.g., if the client does not support SAP type 3, it can decide to never request a track wherein a Group may start with SAP type 3) and, if yes, how to switch between different alternative tracks when network conditions change.\n\nIt is therefore proposed to add two track-level catalog fields, named maxGrpSapType and maxObjSapType, respectively, to signal the above two indications. I.e., maxGrpSapType signals the max SAP type the MOQT Groups in the track start with, and maxObjSapType signals the max SAP type the MOQT Objects in the track start with. The maxGrpSapType applies also to WARP thus should be finally included into the WARP draft, but for the moment it can be included in the CARP draft (similarly as the general metadata scheme of the METADATA element of the timeline track).\n\n@wilaw What do you think? If positive, I can generate a PR with concrete proposed changes.\n",
       "createdAt": "2025-08-26T16:54:13Z",
-      "updatedAt": "2025-09-11T18:34:36Z",
+      "updatedAt": "2025-09-15T16:21:08Z",
       "closedAt": null,
       "comments": [
         {
@@ -132,6 +132,13 @@
           "body": "@wilaw Done with the PR. There is one failing check on [Update Editor's Copy / Update Editor's Copy (pull_request)](https://github.com/wilaw/carp/actions/runs/17653671870/job/50170826777?pr=7). I took a look but could not figure out what to change to correct the error. This happened to me several times for the MOQT PRs I submitted and each time Alan Frindell helped resolved the issue. Hopefully it is also easy for you to help me fixing the error herein - thank you in any case! There are still a lot of Git stuff for me to learn.",
           "createdAt": "2025-09-11T18:34:36Z",
           "updatedAt": "2025-09-11T18:34:36Z"
+        },
+        {
+          "author": "yekuiwang",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> [@wilaw](https://github.com/wilaw) Done with the PR. There is one failing check on [Update Editor's Copy / Update Editor's Copy (pull_request)](https://github.com/wilaw/carp/actions/runs/17653671870/job/50170826777?pr=7). I took a look but could not figure out what to change to correct the error. This happened to me several times for the MOQT PRs I submitted and each time Alan Frindell helped resolved the issue. Hopefully it is also easy for you to help me fixing the error herein - thank you in any case! There are still a lot of Git stuff for me to learn.\n\n@wilaw Let me know if I should re-generate a PR for this that can pass all the checks.",
+          "createdAt": "2025-09-15T16:21:08Z",
+          "updatedAt": "2025-09-15T16:21:08Z"
         }
       ]
     },
