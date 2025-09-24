@@ -10,24 +10,24 @@
        This document updates   by defining a new optional feature for the streaming format.
 It specifies the syntax and semantics for adding CMAF-packaged media   to WARP. 
     " name="description">
-<meta content="xml2rfc 3.30.0" name="generator">
+<meta content="xml2rfc 3.30.2" name="generator">
 <meta content="moq" name="keyword">
 <meta content="moqt" name="keyword">
 <meta content="WARP" name="keyword">
 <meta content="CMAF" name="keyword">
 <meta content="draft-law-moq-carp-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.30.0
+  xml2rfc 3.30.2
     Python 3.12.11
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
     Jinja2 3.1.6
     lxml 5.3.1
-    platformdirs 4.3.8
+    platformdirs 4.4.0
     pycountry 24.6.1
     PyYAML 6.0.2
-    requests 2.32.4
+    requests 2.32.5
     setuptools 80.9.0
     wcwidth 0.2.13
 -->
@@ -1048,11 +1048,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">CARP - a CMAF compliant implementation o</td>
-<td class="right">August 2025</td>
+<td class="right">September 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Law</td>
-<td class="center">Expires 27 February 2026</td>
+<td class="center">Expires 28 March 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1065,12 +1065,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-law-moq-carp-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-08-26" class="published">26 August 2025</time>
+<time datetime="2025-09-24" class="published">24 September 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-02-27">27 February 2026</time></dd>
+<dd class="expires"><time datetime="2026-03-28">28 March 2026</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1121,7 +1121,7 @@ It specifies the syntax and semantics for adding CMAF-packaged media <span>[<a h
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 27 February 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 28 March 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1169,22 +1169,25 @@ It specifies the syntax and semantics for adding CMAF-packaged media <span>[<a h
                 <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="auto internal xref">3.3</a>.  <a href="#name-object-packaging" class="internal xref">Object Packaging</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4">
-                <p id="section-toc.1-1.3.2.4.1"><a href="#section-3.4" class="auto internal xref">3.4</a>.  <a href="#name-catalog-description" class="internal xref">Catalog description</a></p>
+                <p id="section-toc.1-1.3.2.4.1"><a href="#section-3.4" class="auto internal xref">3.4</a>.  <a href="#name-group-packaging" class="internal xref">Group Packaging</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.5">
-                <p id="section-toc.1-1.3.2.5.1"><a href="#section-3.5" class="auto internal xref">3.5</a>.  <a href="#name-timeline-description" class="internal xref">Timeline description</a></p>
+                <p id="section-toc.1-1.3.2.5.1"><a href="#section-3.5" class="auto internal xref">3.5</a>.  <a href="#name-catalog-description" class="internal xref">Catalog description</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.6">
+                <p id="section-toc.1-1.3.2.6.1"><a href="#section-3.6" class="auto internal xref">3.6</a>.  <a href="#name-timeline-description" class="internal xref">Timeline description</a></p>
 <ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.5.2.1">
-                    <p id="section-toc.1-1.3.2.5.2.1.1"><a href="#section-3.5.1" class="auto internal xref">3.5.1</a>.  <a href="#name-general-metadata-scheme" class="internal xref">General metadata scheme</a></p>
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.6.2.1">
+                    <p id="section-toc.1-1.3.2.6.2.1.1"><a href="#section-3.6.1" class="auto internal xref">3.6.1</a>.  <a href="#name-general-metadata-scheme" class="internal xref">General metadata scheme</a></p>
 </li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.5.2.2">
-                    <p id="section-toc.1-1.3.2.5.2.2.1"><a href="#section-3.5.2" class="auto internal xref">3.5.2</a>.  <a href="#name-namespace-for-carp-specific" class="internal xref">Namespace for CARP-specific metadata signalled through the METADATA element</a></p>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.6.2.2">
+                    <p id="section-toc.1-1.3.2.6.2.2.1"><a href="#section-3.6.2" class="auto internal xref">3.6.2</a>.  <a href="#name-namespace-for-carp-specific" class="internal xref">Namespace for CARP-specific metadata signalled through the METADATA element</a></p>
 </li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.5.2.3">
-                    <p id="section-toc.1-1.3.2.5.2.3.1"><a href="#section-3.5.3" class="auto internal xref">3.5.3</a>.  <a href="#name-metadata-signalling-of-sap-" class="internal xref">Metadata signalling of SAP type</a></p>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.6.2.3">
+                    <p id="section-toc.1-1.3.2.6.2.3.1"><a href="#section-3.6.3" class="auto internal xref">3.6.3</a>.  <a href="#name-metadata-signalling-of-sap-" class="internal xref">Metadata signalling of SAP type</a></p>
 </li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.5.2.4">
-                    <p id="section-toc.1-1.3.2.5.2.4.1"><a href="#section-3.5.4" class="auto internal xref">3.5.4</a>.  <a href="#name-metadata-signalling-of-earl" class="internal xref">Metadata signalling of earliest presentation time</a></p>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.6.2.4">
+                    <p id="section-toc.1-1.3.2.6.2.4.1"><a href="#section-3.6.4" class="auto internal xref">3.6.4</a>.  <a href="#name-metadata-signalling-of-earl" class="internal xref">Metadata signalling of earliest presentation time</a></p>
 </li>
                 </ul>
 </li>
@@ -1283,33 +1286,54 @@ first media sample contained within the first MOQT Object of each MOQT Group is 
         <h3 id="name-object-packaging">
 <a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-object-packaging" class="section-name selfRef">Object Packaging</a>
         </h3>
-<p id="section-3.3-1">Each MOQT Group <span class="bcp14">MUST</span> begin with a stream access point (SAP type 1 or 2).
-Each MOQT Object <span class="bcp14">MUST</span> hold one or more CMAF Chunks. The payload of each Object is subject
-to the following requirements:<a href="#section-3.3-1" class="pilcrow">¶</a></p>
+<p id="section-3.3-1">The payload of each Object is subject to the following requirements:<a href="#section-3.3-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.3-2.1">
-            <p id="section-3.3-2.1.1"><span class="bcp14">MUST</span> consist of a Segment Type Box (styp) followed by any number of media fragments.
-Each media fragment consists of a Movie Fragment Box (moof) followed by a Media Data
-Box (mdat). The Media Fragment Box (moof) <span class="bcp14">MUST</span> contain a Movie Fragment Header Box
+            <p id="section-3.3-2.1.1"><span class="bcp14">MUST</span> contain at least one Movie Fragment Box (moof) followed by a Media Data
+Box (mdat). This is equivalent to requiring that each Object hold at least one CMAF
+Chunk. The Media Fragment Box (moof) <span class="bcp14">MUST</span> contain a Movie Fragment Header Box
 (mfhd) and Track Box (trak) with a Track ID (track_ID) matching a Track Box in the
 initialization fragment.<a href="#section-3.3-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.3-2.2">
-            <p id="section-3.3-2.2.1"><span class="bcp14">MUST</span> contain a single [ISOBMFF] track.<a href="#section-3.3-2.2.1" class="pilcrow">¶</a></p>
+            <p id="section-3.3-2.2.1"><span class="bcp14">MAY</span> contain multiple successive CMAF Chunks.<a href="#section-3.3-2.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.3-2.3">
-            <p id="section-3.3-2.3.1"><span class="bcp14">MUST</span> contain media content encoded in decode order.<a href="#section-3.3-2.3.1" class="pilcrow">¶</a></p>
+            <p id="section-3.3-2.3.1"><span class="bcp14">MUST</span> contain a single [ISOBMFF] track.<a href="#section-3.3-2.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.3-2.4">
+            <p id="section-3.3-2.4.1"><span class="bcp14">MUST</span> contain media content encoded in decode order.<a href="#section-3.3-2.4.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+<div id="group-packaging">
+<section id="section-3.4">
+        <h3 id="name-group-packaging">
+<a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-group-packaging" class="section-name selfRef">Group Packaging</a>
+        </h3>
+<p id="section-3.4-1">Each MOQT Group<a href="#section-3.4-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.4-2.1">
+            <p id="section-3.4-2.1.1"><span class="bcp14">MUST</span> begin with an Object containing a stream access point (SAP type 1 or 2).<a href="#section-3.4-2.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.4-2.2">
+            <p id="section-3.4-2.2.1"><span class="bcp14">MUST</span> contain one or more contiguous Groups of Pictures (GOPs).<a href="#section-3.4-2.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.4-2.3">
+            <p id="section-3.4-2.3.1">The Group boundary <span class="bcp14">MUST</span> align with a CMAF Fragment boundary. CMAF Fragments and CMAF
+Chunks <span class="bcp14">MUST</span> not span Groups.<a href="#section-3.4-2.3.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
 </div>
 <div id="catalog-description">
-<section id="section-3.4">
+<section id="section-3.5">
         <h3 id="name-catalog-description">
-<a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-catalog-description" class="section-name selfRef">Catalog description</a>
+<a href="#section-3.5" class="section-number selfRef">3.5. </a><a href="#name-catalog-description" class="section-name selfRef">Catalog description</a>
         </h3>
-<p id="section-3.4-1">This specification extends the allowed packaging values defined in WARP Section 5.2.10
-to include a new entry, as defined in Table 1 below:<a href="#section-3.4-1" class="pilcrow">¶</a></p>
+<p id="section-3.5-1">This specification extends the allowed packaging values defined in WARP Section 5.2.10
+to include a new entry, as defined in Table 1 below:<a href="#section-3.5-1" class="pilcrow">¶</a></p>
 <table class="center" id="table-1">
           <caption><a href="#table-1" class="selfRef">Table 1</a></caption>
 <thead>
@@ -1327,78 +1351,78 @@ to include a new entry, as defined in Table 1 below:<a href="#section-3.4-1" cla
             </tr>
           </tbody>
         </table>
-<p id="section-3.4-3">Every Track entry in a CARP catalog <span class="bcp14">MUST</span> declare a "packaging" type value of "cmaf".<a href="#section-3.4-3" class="pilcrow">¶</a></p>
+<p id="section-3.5-3">Every Track entry in a CARP catalog <span class="bcp14">MUST</span> declare a "packaging" type value of "cmaf".<a href="#section-3.5-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="timeline-description">
-<section id="section-3.5">
+<section id="section-3.6">
         <h3 id="name-timeline-description">
-<a href="#section-3.5" class="section-number selfRef">3.5. </a><a href="#name-timeline-description" class="section-name selfRef">Timeline description</a>
+<a href="#section-3.6" class="section-number selfRef">3.6. </a><a href="#name-timeline-description" class="section-name selfRef">Timeline description</a>
         </h3>
-<p id="section-3.5-1">This specification extends the METADATA element of the timeline track, defined in WARP
-Section 7, in the following four aspects:<a href="#section-3.5-1" class="pilcrow">¶</a></p>
+<p id="section-3.6-1">This specification extends the METADATA element of the timeline track, defined in WARP
+Section 7, in the following four aspects:<a href="#section-3.6-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.5-2.1">
-            <p id="section-3.5-2.1.1">Specification of a general scheme for metadata signalled through the METADATA element
+<li class="normal" id="section-3.6-2.1">
+            <p id="section-3.6-2.1.1">Specification of a general scheme for metadata signalled through the METADATA element
 of the timeline track [Ed.Note: This aspect should also be applied to WARP, thus
-should be moved to WARP later on.]<a href="#section-3.5-2.1.1" class="pilcrow">¶</a></p>
+should be moved to WARP later on.]<a href="#section-3.6-2.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.5-2.2">
-            <p id="section-3.5-2.2.1">Definition of a namespace for CARP-specific metadata signalled through the METADATA
-element of the timeline track<a href="#section-3.5-2.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-3.6-2.2">
+            <p id="section-3.6-2.2.1">Definition of a namespace for CARP-specific metadata signalled through the METADATA
+element of the timeline track<a href="#section-3.6-2.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.5-2.3">
-            <p id="section-3.5-2.3.1">Addition of metadata signalling of SAP type<a href="#section-3.5-2.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-3.6-2.3">
+            <p id="section-3.6-2.3.1">Addition of metadata signalling of SAP type<a href="#section-3.6-2.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.5-2.4">
-            <p id="section-3.5-2.4.1">Addition of metadata signalling of earliest presentation time<a href="#section-3.5-2.4.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-3.6-2.4">
+            <p id="section-3.6-2.4.1">Addition of metadata signalling of earliest presentation time<a href="#section-3.6-2.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <div id="general-metadata-scheme">
-<section id="section-3.5.1">
+<section id="section-3.6.1">
           <h4 id="name-general-metadata-scheme">
-<a href="#section-3.5.1" class="section-number selfRef">3.5.1. </a><a href="#name-general-metadata-scheme" class="section-name selfRef">General metadata scheme</a>
+<a href="#section-3.6.1" class="section-number selfRef">3.6.1. </a><a href="#name-general-metadata-scheme" class="section-name selfRef">General metadata scheme</a>
           </h4>
-<p id="section-3.5.1-1">When not empty, the string in the METADATA field <span class="bcp14">MUST</span> contain one or more comma
+<p id="section-3.6.1-1">When not empty, the string in the METADATA field <span class="bcp14">MUST</span> contain one or more comma
 separated key=value pairs, formatted as Strings as specified in Section 3.3.3 of
 [RFC9651]. For example, the METADATA field can be "key1=1,key2=3268". For another
-example, the METADATA field can be "key1=1,key2=""hello-world"",key3=3268".<a href="#section-3.5.1-1" class="pilcrow">¶</a></p>
-<p id="section-3.5.1-2">A key name <span class="bcp14">MAY</span> be prefixed with a namespace. When a namespace is present, the
-separator between the namespace prefix and the key name is '.'.<a href="#section-3.5.1-2" class="pilcrow">¶</a></p>
+example, the METADATA field can be "key1=1,key2=""hello-world"",key3=3268".<a href="#section-3.6.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.6.1-2">A key name <span class="bcp14">MAY</span> be prefixed with a namespace. When a namespace is present, the
+separator between the namespace prefix and the key name is '.'.<a href="#section-3.6.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="namespace-for-carp-specific-metadata-signalled-through-the-metadata-element">
-<section id="section-3.5.2">
+<section id="section-3.6.2">
           <h4 id="name-namespace-for-carp-specific">
-<a href="#section-3.5.2" class="section-number selfRef">3.5.2. </a><a href="#name-namespace-for-carp-specific" class="section-name selfRef">Namespace for CARP-specific metadata signalled through the METADATA element</a>
+<a href="#section-3.6.2" class="section-number selfRef">3.6.2. </a><a href="#name-namespace-for-carp-specific" class="section-name selfRef">Namespace for CARP-specific metadata signalled through the METADATA element</a>
           </h4>
-<p id="section-3.5.2-1">For CARP-specific metadata signalled through the METADATA element, the namespace is
-"timeline:metadata:carp".<a href="#section-3.5.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.6.2-1">For CARP-specific metadata signalled through the METADATA element, the namespace is
+"timeline:metadata:carp".<a href="#section-3.6.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="metadata-signalling-of-sap-type">
-<section id="section-3.5.3">
+<section id="section-3.6.3">
           <h4 id="name-metadata-signalling-of-sap-">
-<a href="#section-3.5.3" class="section-number selfRef">3.5.3. </a><a href="#name-metadata-signalling-of-sap-" class="section-name selfRef">Metadata signalling of SAP type</a>
+<a href="#section-3.6.3" class="section-number selfRef">3.6.3. </a><a href="#name-metadata-signalling-of-sap-" class="section-name selfRef">Metadata signalling of SAP type</a>
           </h4>
-<p id="section-3.5.3-1">When the key name of a key=value pair is "SAP_TYPE", the value indicates the SAP type
-the Object begins with. The namespace-prefixed key is "timeline:metadata:carp.SAP_TYPE".<a href="#section-3.5.3-1" class="pilcrow">¶</a></p>
-<p id="section-3.5.3-2">The value 0 indicates that the Object does not start with an ISOBMFF stream access point.
+<p id="section-3.6.3-1">When the key name of a key=value pair is "SAP_TYPE", the value indicates the SAP type
+the Object begins with. The namespace-prefixed key is "timeline:metadata:carp.SAP_TYPE".<a href="#section-3.6.3-1" class="pilcrow">¶</a></p>
+<p id="section-3.6.3-2">The value 0 indicates that the Object does not start with an ISOBMFF stream access point.
 The value equal to 1, 2, or 3 indicates that the Object begins with a stream access point
 of SAP type 1, 2, or 3, respectively. When the Object is the first Object in the Group,
-the value <span class="bcp14">MUST</span> be equal to 1 or 2.<a href="#section-3.5.3-2" class="pilcrow">¶</a></p>
+the value <span class="bcp14">MUST</span> be equal to 1 or 2.<a href="#section-3.6.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="metadata-signalling-of-earliest-presentation-time">
-<section id="section-3.5.4">
+<section id="section-3.6.4">
           <h4 id="name-metadata-signalling-of-earl">
-<a href="#section-3.5.4" class="section-number selfRef">3.5.4. </a><a href="#name-metadata-signalling-of-earl" class="section-name selfRef">Metadata signalling of earliest presentation time</a>
+<a href="#section-3.6.4" class="section-number selfRef">3.6.4. </a><a href="#name-metadata-signalling-of-earl" class="section-name selfRef">Metadata signalling of earliest presentation time</a>
           </h4>
-<p id="section-3.5.4-1">When the key name of a key=value pair is "EARLIEST_PTS", the value indicates the earliest
+<p id="section-3.6.4-1">When the key name of a key=value pair is "EARLIEST_PTS", the value indicates the earliest
 media presentation timestamp rounded to the nearest millisecond of all media samples in
-the Object. The namespace-prefixed key is "timeline:metadata:carp.SAP_TYPE".<a href="#section-3.5.4-1" class="pilcrow">¶</a></p>
-<p id="section-3.5.4-2">WWhen the SAP type the Object begins with is 2 or 3, the EARLIEST_PTS key <span class="bcp14">SHOULD</span> be
-present.<a href="#section-3.5.4-2" class="pilcrow">¶</a></p>
+the Object. The namespace-prefixed key is "timeline:metadata:carp.SAP_TYPE".<a href="#section-3.6.4-1" class="pilcrow">¶</a></p>
+<p id="section-3.6.4-2">WWhen the SAP type the Object begins with is 2 or 3, the EARLIEST_PTS key <span class="bcp14">SHOULD</span> be
+present.<a href="#section-3.6.4-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
