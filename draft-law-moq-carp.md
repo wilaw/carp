@@ -131,7 +131,7 @@ This specification adds two track-level catalog fields, as defined in Table 2 be
 | Max Group SAP starting type | maxGrpSapStartingType  | {{maxgrpsapstartingtype}} |
 | Max Object SAP starting type| maxObjSapStartingType  | {{maxobjsapstartingtype}} |
 
-#### Max Group SAP starting type (#maxgrpsapstartingtype)
+#### Max Group SAP starting type {#maxgrpsapstartingtype}
 Location: T    Required: Optional   JSON Type: Number
 
 A number indicating the maximum SAP type the MOQT Groups in the track start with.
