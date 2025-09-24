@@ -138,7 +138,7 @@ A number indicating the maximum SAP type the MOQT Groups in the track start with
 [Ed.Note: This field, when the SAP terminology is translated to video codec terminology
 of Random Access Point (RAP) pictures such as IDR, CRA, etc, would also apply to WARP.]
 
-#### Max Object SAP starting type (#maxobjsapstartingtype)
+#### Max Object SAP starting type {#maxobjsapstartingtype}
 Location: T    Required: Optional   JSON Type: Number
 
 A number indicating the maximum SAP type the MOQT Objects in the track start with.
