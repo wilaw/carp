@@ -123,22 +123,22 @@ to include a new entry, as defined in Table 1 below:
 
 Every Track entry in a CARP catalog MUST declare a "packaging" type value of "cmaf".
 
-### Maximum SAP types
+### Max SAP starting types
 This specification adds two track-level catalog fields, as defined in Table 2 below:
 
-| Field                   |  Name                  |           Definition      |
-|:========================|:=======================|:==========================|
-| Max Group SAP type      | maxGrpSapType          | {{maxgrpsaptype}}         |
-| Max Object SAP type     | maxObjSapType          | {{maxobjsaptype}}         |
+| Field                       |  Name                  |           Definition      |
+|:============================|:=======================|:==========================|
+| Max Group SAP starting type | maxGrpSapStartingType  | {{maxgrpsapstartingtype}} |
+| Max Object SAP starting type| maxObjSapStartingType  | {{maxobjsapstartingtype}} |
 
-#### Maximum SAP type of a Group (#maxgrpsaptype)
+#### Max Group SAP starting type (#maxgrpsapstartingtype)
 Location: T    Required: Optional   JSON Type: Number
 
 A number indicating the maximum SAP type the MOQT Groups in the track start with.
 [Ed.Note: This field, when the SAP terminology is translated to video codec terminology
 of Random Access Point (RAP) pictures such as IDR, CRA, etc, would also apply to WARP.]
 
-#### Maximum SAP type of an Object (#maxobjsaptype)
+#### Max Object SAP starting type (#maxobjsapstartingtype)
 Location: T    Required: Optional   JSON Type: Number
 
 A number indicating the maximum SAP type the MOQT Objects in the track start with.
