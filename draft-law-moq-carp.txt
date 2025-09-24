@@ -75,6 +75,8 @@ Table of Contents
      3.3.  Object Packaging
      3.4.  Group Packaging
      3.5.  Catalog description
+       3.5.1.  CMAF packaging type
+       3.5.2.  Max SAP starting types
      3.6.  Timeline description
        3.6.1.  General metadata scheme
        3.6.2.  Namespace for CARP-specific metadata signalled through
@@ -174,6 +176,8 @@ Table of Contents
 
 3.5.  Catalog description
 
+3.5.1.  CMAF packaging type
+
    This specification extends the allowed packaging values defined in
    WARP Section 5.2.10 to include a new entry, as defined in Table 1
    below:
@@ -188,6 +192,39 @@ Table of Contents
 
    Every Track entry in a CARP catalog MUST declare a "packaging" type
    value of "cmaf".
+
+3.5.2.  Max SAP starting types
+
+   This specification adds two track-level catalog fields, as defined in
+   Table 2 below:
+
+   +=============================+=======================+============+
+   | Field                       | Name                  | Definition |
+   +=============================+=======================+============+
+   | Max Group SAP starting type | maxGrpSapStartingType | Section    |
+   |                             |                       | 3.5.2.1    |
+   +-----------------------------+-----------------------+------------+
+   | Max Object SAP starting     | maxObjSapStartingType | Section    |
+   | type                        |                       | 3.5.2.2    |
+   +-----------------------------+-----------------------+------------+
+
+                                 Table 2
+
+3.5.2.1.  Max Group SAP starting type
+
+   Location: T Required: Optional JSON Type: Number
+
+   A number indicating the maximum SAP type the MOQT Groups in the track
+   start with.  [Ed.Note: This field, when the SAP terminology is
+   translated to video codec terminology of Random Access Point (RAP)
+   pictures such as IDR, CRA, etc, would also apply to WARP.]
+
+3.5.2.2.  Max Object SAP starting type
+
+   Location: T Required: Optional JSON Type: Number
+
+   A number indicating the maximum SAP type the MOQT Objects in the
+   track start with.
 
 3.6.  Timeline description
 
