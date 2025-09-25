@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-09-16T01:09:14.653132+00:00",
+  "timestamp": "2025-09-25T01:10:59.669911+00:00",
   "repo": "wilaw/carp",
   "labels": [
     {
@@ -102,15 +102,15 @@
       "id": "I_kwDOPVWI587IDujk",
       "title": "Track-level signalling of max SAP types",
       "url": "https://github.com/wilaw/carp/issues/4",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "yekuiwang",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "DASH specifies a common Adaptation Set, Representation and Sub-Representation attribute @startWithSAP, with the following semantics:\n\nwhen present and greater than 0, specifies that in the associated Representations, each Media Segment starts with a SAP of type less than or equal to the value of this attribute value in each media stream.\nA Media Segment starts with a SAP in a media stream if the stream contains a SAP in that Media Segment, I_SAU is the index of the first access unit that follows I_SAP and I_SAP is contained in the Media Segment.\nIf not present on any level, the value is unknown.\n\nDASH also specifies an Adaptation Set attribute @subsegmentStartsWithSAP, with the following semantics:\n\nwhen greater than 0, specifies that each Subsegment with SAP_type greater than 0 starts with a SAP of type less than or equal to the value of @subsegmentStartsWithSAP. A Subsegment starts with SAP when the Subsegment contains a SAP, and for the first SAP, I_SAU is the index of the first access unit that follows I_SAP, and I_SAP is contained in the Subsegment.\nWhen not present, the value is inferred to be equal to 0. The semantics of @subsegmentStartsWithSAP equal to 0 are unspecified.\n\nBasically, in the context of both WARP and CARP, the DASH attribute @startWithSAP (if signalled in a track level) signals the max SAP type the MOQT Groups in the track start with, and in the context of CARP, the DASH attribute @subsegmentStartsWithSAP (if signalled in a track level) signals the max SAP type the MOQT Objects in the track start with.\n\nThe two indications are helpful for a client to determine whether to request certain tracks at all (e.g., if the client does not support SAP type 3, it can decide to never request a track wherein a Group may start with SAP type 3) and, if yes, how to switch between different alternative tracks when network conditions change.\n\nIt is therefore proposed to add two track-level catalog fields, named maxGrpSapType and maxObjSapType, respectively, to signal the above two indications. I.e., maxGrpSapType signals the max SAP type the MOQT Groups in the track start with, and maxObjSapType signals the max SAP type the MOQT Objects in the track start with. The maxGrpSapType applies also to WARP thus should be finally included into the WARP draft, but for the moment it can be included in the CARP draft (similarly as the general metadata scheme of the METADATA element of the timeline track).\n\n@wilaw What do you think? If positive, I can generate a PR with concrete proposed changes.\n",
       "createdAt": "2025-08-26T16:54:13Z",
-      "updatedAt": "2025-09-15T16:21:08Z",
-      "closedAt": null,
+      "updatedAt": "2025-09-24T20:08:54Z",
+      "closedAt": "2025-09-24T20:08:54Z",
       "comments": [
         {
           "author": "wilaw",
@@ -147,14 +147,30 @@
       "id": "I_kwDOPVWI587K1Sqy",
       "title": "Object Packaging vs CMAF media object model",
       "url": "https://github.com/wilaw/carp/issues/6",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "BpkCN",
       "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "It would be useful to keep the packaging identical between CARP and LL-DASH, DASH, LL_HLS and HLS (with CMAF segments). With the current draft this is not the case: In \u201cObject Packaging\u201d section (3.3) it is said that each Object must contain a styp box and at least one moof + mdat box.  With CMAF format for segmented media (ISO 23000-19), the sty box is not required for Chunks, fragments or segments.\n\nThe fix could be to simply require that at least one moof and one mdat is contained in an Object (i.e. at least one CMAF Chunk per Object). The other boxes are optional. However, the first Object of a Group should be constrained to be an adaptive switching point (i.e. SAP type 1 or 2), therefore corresponding to the first CMAF Chunk in a CMAF fragment.\n\nProposed PR: #5 ",
       "createdAt": "2025-09-10T15:40:13Z",
-      "updatedAt": "2025-09-10T15:40:13Z",
+      "updatedAt": "2025-09-24T17:24:39Z",
+      "closedAt": "2025-09-24T17:24:39Z",
+      "comments": []
+    },
+    {
+      "number": 8,
+      "id": "I_kwDOPVWI587Nr_yg",
+      "title": "Need to describe how Common Encryption is supported and communicated",
+      "url": "https://github.com/wilaw/carp/issues/8",
+      "state": "OPEN",
+      "author": "wilaw",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "The MPEG Common Encryption (CENC) standard, formally ISO/IEC 23001-7, is a specification that enables content providers to encrypt a single media file, typically in the ISO Base Media File Format (ISOBMFF, e.g., MP4 or fragmented MP4), and have it be decryptable by multiple, different Digital Rights Management (DRM) systems such as Widevine, PlayReady, or FairPlay. CENC achieves this \"encrypt-once, decrypt-many\" capability by defining a common, standardized method for encryption (like AES-128 in CTR or CBC mode) and a common structure for signaling the encryption metadata, including key identifiers (KIDs) and initialization vectors, while leaving the DRM-specific details of key acquisition and rights management to the individual DRM system's license server.\n\n This standardization significantly streamlines the workflow and reduces the storage and processing overhead for distributing protected video and audio content, especially in adaptive streaming formats .\n\nIn implementing CENC support, we may want to restrict the allowed cipher modes to only \n\n'cenc': AES-CTR (Advanced Encryption Standard in Counter Mode) for full sample encryption, meaning the entire content of a media sample is encrypted.\n\n'cbcs': AES-CBC for pattern encryption (subsample encryption), encrypting only a pattern of blocks within each media sample.",
+      "createdAt": "2025-09-24T20:20:31Z",
+      "updatedAt": "2025-09-24T20:20:31Z",
       "closedAt": null,
       "comments": []
     }
@@ -293,24 +309,26 @@
       "id": "PR_kwDOPVWI586nzGxH",
       "title": "Refining CMAF box requirements for Object packaging",
       "url": "https://github.com/wilaw/carp/pull/5",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "wilaw",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
-      "body": "",
+      "body": "Fixes #6",
       "createdAt": "2025-09-10T11:38:08Z",
-      "updatedAt": "2025-09-10T11:38:08Z",
+      "updatedAt": "2025-09-24T17:24:43Z",
       "baseRepository": "wilaw/carp",
       "baseRefName": "main",
       "baseRefOid": "2f7d0a2bcb579c5c3502aa1afa2821c7562e8d50",
       "headRepository": "wilaw/carp",
       "headRefName": "wilaw-patch-1",
       "headRefOid": "893f8da84da792bbe0497fadb95bfde1c905bdc5",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-09-24T17:24:38Z",
+      "mergedAt": "2025-09-24T17:24:38Z",
+      "mergedBy": "wilaw",
+      "mergeCommit": {
+        "oid": "690c8f166c12da206de9eaff625acbd897b2eb4e"
+      },
       "comments": [],
       "reviews": []
     },
@@ -319,26 +337,149 @@
       "id": "PR_kwDOPVWI586oGFGr",
       "title": "Adding max Group/Ojbect SAP types",
       "url": "https://github.com/wilaw/carp/pull/7",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "yekuiwang",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Fixes: #4",
       "createdAt": "2025-09-11T18:23:08Z",
-      "updatedAt": "2025-09-11T18:23:09Z",
+      "updatedAt": "2025-09-24T20:08:53Z",
       "baseRepository": "wilaw/carp",
       "baseRefName": "main",
       "baseRefOid": "04c0f123e7dfc930ef2bc3a0180019312cd2fa2b",
       "headRepository": "yekuiwang/carp",
       "headRefName": "max-sap-types",
-      "headRefOid": "a7103c2457d8efe1e22ef52a2811c1441b0f81b7",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "5ae66f414f19151b0c34927541396ac3ba7d2ff9",
+      "closedAt": "2025-09-24T20:08:53Z",
+      "mergedAt": "2025-09-24T20:08:53Z",
+      "mergedBy": "wilaw",
+      "mergeCommit": {
+        "oid": "9424e7fdf04839e3621e7023d07fce6457165efe"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOPVWI587CjCdF",
+          "commit": {
+            "abbreviatedOid": "a7103c2"
+          },
+          "author": "wilaw",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "Suggested new names and definitions to clarify what is being communicated. ",
+          "createdAt": "2025-09-24T17:36:54Z",
+          "updatedAt": "2025-09-24T17:37:29Z",
+          "comments": [
+            {
+              "originalPosition": 24,
+              "body": "Does this really mean the SAP type of the first Object within any Group? Because Group is just a virtual collection of Objects. So how can #maxgrpsaptype and #maxobjsaptype differ, since a Group is just comprised of OBjects.\r\n\r\nSuggest we rename:\r\nMax Group SAP starting type: the Maximum SAP type of the first Object in a Group \r\nMax Group SAP non-starting type: Maximum SAP type contained in second and subsequent Objects within a Group. \r\n",
+              "createdAt": "2025-09-24T17:36:54Z",
+              "updatedAt": "2025-09-24T17:37:29Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOPVWI587CjcAE",
+          "commit": {
+            "abbreviatedOid": "a7103c2"
+          },
+          "author": "yekuiwang",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-24T18:01:11Z",
+          "updatedAt": "2025-09-24T18:01:11Z",
+          "comments": [
+            {
+              "originalPosition": 24,
+              "body": "Example: A group starting with non-reordering IDR (SAP type 1), i.e., the first picture in Object 0 (note that an Object can contain multiple coded pictures) is a non-reordering IDR picture, and the Group contains some non-first Objects starting with CRA (SAP type 3), i.e., the first picture in each of these non-first Objects is a CRA picture. Herein #maxgrpsaptype = 1, and #maxobjsaptype = 3.\r\n\r\nChanging the name of #maxgrpsaptype to Max Group SAP starting type is editorial and it is good to me. \r\n\r\nChanging the name of #maxobjsaptype to Max Group SAP non-starting type is technical. Please note that this would make it technically different from @subsegmentStartsWithSAP in DASH. To me that is not as good as keeping the alignment. I prefer to have the alignment, but if you have a strong opinion to change it noting that the alignment is lost, that is OK to me.  ",
+              "createdAt": "2025-09-24T18:01:11Z",
+              "updatedAt": "2025-09-24T18:01:11Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOPVWI587CkRPB",
+          "commit": {
+            "abbreviatedOid": "a7103c2"
+          },
+          "author": "wilaw",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-24T19:03:34Z",
+          "updatedAt": "2025-09-24T19:03:34Z",
+          "comments": [
+            {
+              "originalPosition": 24,
+              "body": "OK, I agree on changing name to \"Max Group SAP starting type\". Can you make that editorial change?\r\n\r\nOn the second point, I didn't appreciate that it would break compatibility with @subsegmentStartsWithSAP in DASH, so I agree with your suggestion to keep the name the same. ",
+              "createdAt": "2025-09-24T19:03:34Z",
+              "updatedAt": "2025-09-24T19:03:34Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOPVWI587CktVX",
+          "commit": {
+            "abbreviatedOid": "a7103c2"
+          },
+          "author": "yekuiwang",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-24T19:34:24Z",
+          "updatedAt": "2025-09-24T19:34:24Z",
+          "comments": [
+            {
+              "originalPosition": 24,
+              "body": "@wilaw Done with the editorial change.",
+              "createdAt": "2025-09-24T19:34:24Z",
+              "updatedAt": "2025-09-24T19:34:24Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOPVWI587ClH15",
+          "commit": {
+            "abbreviatedOid": "45f1529"
+          },
+          "author": "wilaw",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-24T20:02:12Z",
+          "updatedAt": "2025-09-24T20:02:12Z",
+          "comments": [
+            {
+              "originalPosition": 21,
+              "body": "```suggestion\r\n#### Max Group SAP starting type {#maxgrpsapstartingtype}\r\n```",
+              "createdAt": "2025-09-24T20:02:12Z",
+              "updatedAt": "2025-09-24T20:02:12Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOPVWI587ClIZd",
+          "commit": {
+            "abbreviatedOid": "45f1529"
+          },
+          "author": "wilaw",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-24T20:02:47Z",
+          "updatedAt": "2025-09-24T20:02:48Z",
+          "comments": [
+            {
+              "originalPosition": 28,
+              "body": "```suggestion\r\n#### Max Object SAP starting type {#maxobjsapstartingtype}\r\n```",
+              "createdAt": "2025-09-24T20:02:47Z",
+              "updatedAt": "2025-09-24T20:02:48Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
