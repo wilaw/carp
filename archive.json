@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-09-28T01:17:36.487780+00:00",
+  "timestamp": "2025-10-05T01:16:47.526059+00:00",
   "repo": "wilaw/carp",
   "labels": [
     {
@@ -186,9 +186,17 @@
       "labels": [],
       "body": "See https://github.com/moq-wg/warp-streaming-format/issues/69 about renaming WARP.\n\nCARP name was just a place holder. Use this issue to suggest some practical names for the CMAF-compatible derivative of WARP. \n\n1. CMAF Compatible MOQ Streaming Format (CMSF)\n2. CMAF-4-MOQ-Streaming (C4MS)\n",
       "createdAt": "2025-09-25T20:19:04Z",
-      "updatedAt": "2025-09-25T20:19:04Z",
+      "updatedAt": "2025-10-02T18:49:36Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "yekuiwang",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "3. MoQ Streaming of CMAF Content (MSCC)",
+          "createdAt": "2025-10-02T18:49:36Z",
+          "updatedAt": "2025-10-02T18:49:36Z"
+        }
+      ]
     }
   ],
   "pulls": [
