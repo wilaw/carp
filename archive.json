@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-10-05T01:16:47.526059+00:00",
+  "timestamp": "2025-10-21T01:14:10.227462+00:00",
   "repo": "wilaw/carp",
   "labels": [
     {
@@ -170,9 +170,17 @@
       "labels": [],
       "body": "The MPEG Common Encryption (CENC) standard, formally ISO/IEC 23001-7, is a specification that enables content providers to encrypt a single media file, typically in the ISO Base Media File Format (ISOBMFF, e.g., MP4 or fragmented MP4), and have it be decryptable by multiple, different Digital Rights Management (DRM) systems such as Widevine, PlayReady, or FairPlay. CENC achieves this \"encrypt-once, decrypt-many\" capability by defining a common, standardized method for encryption (like AES-128 in CTR or CBC mode) and a common structure for signaling the encryption metadata, including key identifiers (KIDs) and initialization vectors, while leaving the DRM-specific details of key acquisition and rights management to the individual DRM system's license server.\n\n This standardization significantly streamlines the workflow and reduces the storage and processing overhead for distributing protected video and audio content, especially in adaptive streaming formats .\n\nIn implementing CENC support, we may want to restrict the allowed cipher modes to only \n\n'cenc': AES-CTR (Advanced Encryption Standard in Counter Mode) for full sample encryption, meaning the entire content of a media sample is encrypted.\n\n'cbcs': AES-CBC for pattern encryption (subsample encryption), encrypting only a pattern of blocks within each media sample.",
       "createdAt": "2025-09-24T20:20:31Z",
-      "updatedAt": "2025-09-24T20:20:31Z",
+      "updatedAt": "2025-10-20T19:44:13Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "wilaw",
+          "authorAssociation": "OWNER",
+          "body": "See https://github.com/moq-wg/warp-streaming-format/issues/23 ",
+          "createdAt": "2025-10-20T19:44:13Z",
+          "updatedAt": "2025-10-20T19:44:13Z"
+        }
+      ]
     },
     {
       "number": 9,
