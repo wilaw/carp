@@ -4,8 +4,8 @@
 
 Media Over QUIC                                                   W. Law
 Internet-Draft                                                    Akamai
-Intended status: Informational                         10 September 2025
-Expires: 14 March 2026
+Intended status: Informational                           22 October 2025
+Expires: 25 April 2026
 
 
              CARP - a CMAF compliant implementation of WARP
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 14 March 2026.
+   This Internet-Draft will expire on 25 April 2026.
 
 Copyright Notice
 
@@ -75,12 +75,11 @@ Table of Contents
      3.3.  Object Packaging
      3.4.  Group Packaging
      3.5.  Catalog description
-     3.6.  Timeline description
-       3.6.1.  General metadata scheme
-       3.6.2.  Namespace for CARP-specific metadata signalled through
-               the METADATA element
-       3.6.3.  Metadata signalling of SAP type
-       3.6.4.  Metadata signalling of earliest presentation time
+       3.5.1.  CMAF packaging type
+       3.5.2.  Max SAP starting types
+     3.6.  Event Timelines
+       3.6.1.  SAP Type timeline
+       3.6.2.  SAP-type timeline track example
    4.  Catalog Examples
      4.1.  Simulcast video tracks - 3 alternate video qualities along
            with audio
@@ -174,8 +173,10 @@ Table of Contents
 
 3.5.  Catalog description
 
+3.5.1.  CMAF packaging type
+
    This specification extends the allowed packaging values defined in
-   WARP Section 5.2.10 to include a new entry, as defined in Table 1
+   WARP Section 5.1.12 to include one new entry, as defined in Table 1
    below:
 
                        +======+=======+===========+
@@ -186,65 +187,96 @@ Table of Contents
 
                                  Table 1
 
-   Every Track entry in a CARP catalog MUST declare a "packaging" type
-   value of "cmaf".
+   Every Track entry in a CARP catalog carrying CMAF-packaged media data
+   MUST declare a "packaging" type value of "cmaf".
 
-3.6.  Timeline description
+3.5.2.  Max SAP starting types
 
-   This specification extends the METADATA element of the timeline
-   track, defined in WARP Section 7, in the following four aspects:
+   This specification adds two track-level catalog fields, as defined in
+   Table 2 below:
 
-   *  Specification of a general scheme for metadata signalled through
-      the METADATA element of the timeline track [Ed.Note: This aspect
-      should also be applied to WARP, thus should be moved to WARP later
-      on.]
+   +=============================+=======================+============+
+   | Field                       | Name                  | Definition |
+   +=============================+=======================+============+
+   | Max Group SAP starting type | maxGrpSapStartingType | Section    |
+   |                             |                       | 3.5.2.1    |
+   +-----------------------------+-----------------------+------------+
+   | Max Object SAP starting     | maxObjSapStartingType | Section    |
+   | type                        |                       | 3.5.2.2    |
+   +-----------------------------+-----------------------+------------+
 
-   *  Definition of a namespace for CARP-specific metadata signalled
-      through the METADATA element of the timeline track
+                                 Table 2
 
-   *  Addition of metadata signalling of SAP type
+3.5.2.1.  Max Group SAP starting type
 
-   *  Addition of metadata signalling of earliest presentation time
+   Location: T Required: Optional JSON Type: Number
 
-3.6.1.  General metadata scheme
+   A number indicating the maximum SAP type the MOQT Groups in the track
+   start with.
 
-   When not empty, the string in the METADATA field MUST contain one or
-   more comma separated key=value pairs, formatted as Strings as
-   specified in Section 3.3.3 of [RFC9651].  For example, the METADATA
-   field can be "key1=1,key2=3268".  For another example, the METADATA
-   field can be "key1=1,key2=""hello-world"",key3=3268".
+3.5.2.2.  Max Object SAP starting type
 
-   A key name MAY be prefixed with a namespace.  When a namespace is
-   present, the separator between the namespace prefix and the key name
-   is '.'.
+   Location: T Required: Optional JSON Type: Number
 
-3.6.2.  Namespace for CARP-specific metadata signalled through the
-        METADATA element
+   A number indicating the maximum SAP type the MOQT Objects in the
+   track start with.
 
-   For CARP-specific metadata signalled through the METADATA element,
-   the namespace is "timeline:metadata:carp".
+3.6.  Event Timelines
 
-3.6.3.  Metadata signalling of SAP type
+3.6.1.  SAP Type timeline
 
-   When the key name of a key=value pair is "SAP_TYPE", the value
-   indicates the SAP type the Object begins with.  The namespace-
-   prefixed key is "timeline:metadata:carp.SAP_TYPE".
+   CARP defines a special instance of an Event Timeline track, termed
+   the SAP Type timeline track.  Its purpose is to convey information
+   about the distribution of Stream Access Point types and their
+   associated Earlist Presentation Times.
 
-   The value 0 indicates that the Object does not start with an ISOBMFF
-   stream access point.  The value equal to 1, 2, or 3 indicates that
-   the Object begins with a stream access point of SAP type 1, 2, or 3,
-   respectively.  When the Object is the first Object in the Group, the
-   value MUST be equal to 1 or 2.
+   In the catalog, the SAP-type timeline track MUST include a
+   'packaging' value of 'eventtimeline" and MUST include an 'eventType'
+   value of 'org.ietf.moq.carp.sap'.
 
-3.6.4.  Metadata signalling of earliest presentation time
+   In the SAP Type timeline JSON payload:
 
-   When the key name of a key=value pair is "EARLIEST_PTS", the value
-   indicates the earliest media presentation timestamp rounded to the
-   nearest millisecond of all media samples in the Object.  The
-   namespace-prefixed key is "timeline:metadata:carp.SAP_TYPE".
+   *  The index reference MUST be 'l' for Location
 
-   WWhen the SAP type the Object begins with is 2 or 3, the EARLIEST_PTS
-   key SHOULD be present.
+   *  The data field is a JSON Array containing two integers.  The first
+      integer defines SAP type with an allowed value of 0,1,2 or 3.  The
+      value 0 indicates that the Object does not start with an ISOBMFF
+      stream access point.  The value equal to 1, 2, or 3 indicates that
+      the Object begins with a stream access point of SAP type 1, 2, or
+      3, respectively.  When the Object is the first Object in the
+      Group, the value MUST be equal to 1 or 2.  The second integer
+      defines the earliest media presentation timestamp, rounded to the
+      nearest millisecond, of all media samples in the Object defined by
+      the Location of that record.
+
+3.6.2.  SAP-type timeline track example
+
+   This shows an example of 30-fps HEVC-encoded content, in which each
+   4s Group beings with SAP-type 2 IDR.  After 2 seconds, there is a
+   SAP-type 3 access point with Random Access Skipped Leading (RASL)
+   pictures.  A small buffer of frames (10 frames at 30 fps) is skipped/
+   discarded (RASL pictures).  The EPT is the presentation time of the
+   first decodable and presentable frame after the discardable RASL
+   pictures.
+
+   [
+       {
+           "l": [0,0],
+           "data": [2,0]
+       },
+       {
+           "l": [0,60],
+           "data": [3,2100]
+       },
+       {
+           "l": [1,0],
+           "data": [2,4000]
+       },
+       {
+           "l": [1,60],
+           "data": [3,6100]
+       }
+   ]
 
 4.  Catalog Examples
 
