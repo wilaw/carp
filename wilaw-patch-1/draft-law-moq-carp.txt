@@ -4,8 +4,8 @@
 
 Media Over QUIC                                                   W. Law
 Internet-Draft                                                    Akamai
-Intended status: Informational                           22 October 2025
-Expires: 25 April 2026
+Intended status: Informational                           23 October 2025
+Expires: 26 April 2026
 
 
              CARP - a CMAF compliant implementation of WARP
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 25 April 2026.
+   This Internet-Draft will expire on 26 April 2026.
 
 Copyright Notice
 
@@ -252,12 +252,15 @@ Table of Contents
 3.6.2.  SAP-type timeline track example
 
    This shows an example of 30-fps HEVC-encoded content, in which each
-   4s Group beings with SAP-type 2 IDR.  After 2 seconds, there is a
-   SAP-type 3 access point with Random Access Skipped Leading (RASL)
-   pictures.  A small buffer of frames (10 frames at 30 fps) is skipped/
-   discarded (RASL pictures).  The EPT is the presentation time of the
-   first decodable and presentable frame after the discardable RASL
-   pictures.
+   4s Group beings with SAP-type 2 (i.e., the first picture in the Group
+   is an IDR picture, while there may be one or more pictures in the
+   Group following the IDR picture in decoding order but preceding it in
+   output order).  After 2 seconds in each Group, there is a SAP-type 3,
+   i.e., a CRA picture, which is associated with one or more Random
+   Access Skipped Leading (RASL) pictures.  A small buffer of frames (10
+   frames at 30 fps) is skipped/discarded (RASL pictures).  The EPT is
+   the presentation time of the first decodable and presentable frame
+   after the discardable RASL pictures.
 
    [
        {
