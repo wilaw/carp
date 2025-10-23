@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-10-21T01:14:10.227462+00:00",
+  "timestamp": "2025-10-23T01:13:32.975591+00:00",
   "repo": "wilaw/carp",
   "labels": [
     {
@@ -205,6 +205,22 @@
           "updatedAt": "2025-10-02T18:49:36Z"
         }
       ]
+    },
+    {
+      "number": 10,
+      "id": "I_kwDOPVWI587TDL_5",
+      "title": "Create a SAP-type timeline track",
+      "url": "https://github.com/wilaw/carp/issues/10",
+      "state": "OPEN",
+      "author": "wilaw",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Since https://github.com/moq-wg/warp-streaming-format/pull/70 removes the metadata field from WARP media timeline, we need a mechanism to describe SAP-type diversity and associated EPT within Groups. \n\nThe solution, compliant with the new WARP architecture, is to create an instance of a Event Timeline track and then to define a standardized Event Type and Event type payload to carry the SAP and EPT information. ",
+      "createdAt": "2025-10-22T13:13:29Z",
+      "updatedAt": "2025-10-22T13:13:29Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
@@ -508,6 +524,81 @@
               "body": "```suggestion\r\n#### Max Object SAP starting type {#maxobjsapstartingtype}\r\n```",
               "createdAt": "2025-09-24T20:02:47Z",
               "updatedAt": "2025-09-24T20:02:48Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "id": "PR_kwDOPVWI586vEUak",
+      "title": "Adding in SAP Type timeline track definition",
+      "url": "https://github.com/wilaw/carp/pull/11",
+      "state": "OPEN",
+      "author": "wilaw",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Fixes #10",
+      "createdAt": "2025-10-22T13:17:31Z",
+      "updatedAt": "2025-10-22T19:13:31Z",
+      "baseRepository": "wilaw/carp",
+      "baseRefName": "main",
+      "baseRefOid": "9424e7fdf04839e3621e7023d07fce6457165efe",
+      "headRepository": "wilaw/carp",
+      "headRefName": "wilaw-patch-1",
+      "headRefOid": "771625de578f8892af044d5fb40e371ad2e5f902",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "yekuiwang",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@wilaw Thanks for the PR. It looks pretty good. I just suggested some wording changes on the description of the example based on HEVC encoding, in order to make it more precise in HEVC context, such that even an HEVC expert won't complain.",
+          "createdAt": "2025-10-22T19:12:25Z",
+          "updatedAt": "2025-10-22T19:13:31Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOPVWI587IsxfF",
+          "commit": {
+            "abbreviatedOid": "771625d"
+          },
+          "author": "yekuiwang",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-22T19:06:02Z",
+          "updatedAt": "2025-10-22T19:06:02Z",
+          "comments": [
+            {
+              "originalPosition": 80,
+              "body": "```suggestion\nLeading (RASL) pictures. A small buffer of frames (10 frames at 30 fps) is skipped/discarded\n(RASL pictures) when the streaming session starts from the SAP-type 3 location. In this example,\nthe EPT is the presentation time of the first picture after the RASL pictures in decoding order;\nall pictures after the RASL pictures can be fully correctly decoded and are thus presentable\nwhen the streaming session starts from the SAP-type 3 location. Note that if the streaming session\nstarts from the start of the Group, then these RASL pictures can be fully correctly decoded and are\nthus presentable.",
+              "createdAt": "2025-10-22T19:06:02Z",
+              "updatedAt": "2025-10-22T19:06:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOPVWI587Is0kz",
+          "commit": {
+            "abbreviatedOid": "771625d"
+          },
+          "author": "yekuiwang",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-22T19:09:37Z",
+          "updatedAt": "2025-10-22T19:09:37Z",
+          "comments": [
+            {
+              "originalPosition": 77,
+              "body": "```suggestion\nSAP-type 2 (i.e., the first picture in the Group is an IDR picture, while there may be one or more\npictures in the Group following the IDR picture in decoding order but preceding it in output\norder). After 2 seconds in each Group, there is a SAP-type 3, i.e., a CRA picture, which\nis associated with one or more Random Access Skipped",
+              "createdAt": "2025-10-22T19:09:37Z",
+              "updatedAt": "2025-10-22T19:09:37Z"
             }
           ]
         }
