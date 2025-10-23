@@ -172,7 +172,10 @@ In the SAP Type timeline JSON payload:
 
 ### SAP-type timeline track example
 This shows an example of 30-fps HEVC-encoded content, in which each 4s Group beings with
-SAP-type 2 IDR. After 2 seconds, there is a SAP-type 3 access point with Random Access Skipped
+SAP-type 2 (i.e., the first picture in the Group is an IDR picture, while there may be one or more
+pictures in the Group following the IDR picture in decoding order but preceding it in output
+order). After 2 seconds in each Group, there is a SAP-type 3, i.e., a CRA picture, which
+is associated with one or more Random Access Skipped
 Leading (RASL) pictures. A small buffer of frames (10 frames at 30 fps) is skipped/discarded
 (RASL pictures). The EPT is the presentation time of the first decodable and presentable
 frame after the discardable RASL pictures.
