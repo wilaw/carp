@@ -1458,8 +1458,12 @@ pictures in the Group following the IDR picture in decoding order but preceding 
 order). After 2 seconds in each Group, there is a SAP-type 3, i.e., a CRA picture, which
 is associated with one or more Random Access Skipped
 Leading (RASL) pictures. A small buffer of frames (10 frames at 30 fps) is skipped/discarded
-(RASL pictures). The EPT is the presentation time of the first decodable and presentable
-frame after the discardable RASL pictures.<a href="#section-3.6.2-1" class="pilcrow">¶</a></p>
+(RASL pictures) when the streaming session starts from the SAP-type 3 location. In this example,
+the EPT is the presentation time of the first picture after the RASL pictures in decoding order;
+all pictures after the RASL pictures can be fully correctly decoded and are thus presentable
+when the streaming session starts from the SAP-type 3 location. Note that if the streaming session
+starts from the start of the Group, then these RASL pictures can be fully correctly decoded and are
+thus presentable.<a href="#section-3.6.2-1" class="pilcrow">¶</a></p>
 <div class="lang-json sourcecode" id="section-3.6.2-2">
 <pre>
 [
